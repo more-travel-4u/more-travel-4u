@@ -1,12 +1,13 @@
 import express from "express";
-import fetch from "node-fetch";  // Importing node-fetch for making HTTP requests
-import 'dotenv/config';
+import fetch from "node-fetch";  
+import 'dotenv/config'; // Importing 'dotenv' to load environment variables
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const weatherapi = express.Router();
 
-const WEATHERSTACK_API_KEY = "291d85fdc2c71107ed5381d08676476a";
+// Constants
+const WEATHERSTACK_API_KEY = process.env.WEATHERSTACK_API_KEY; // Accessing API key from environment variable
 const WEATHERSTACK_API_URL = "http://api.weatherstack.com/current";
 
 // Utility function to validate city input
