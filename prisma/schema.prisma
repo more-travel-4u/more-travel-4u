@@ -18,9 +18,9 @@ model Users {
   email    String   @unique
   password String
   username String   @unique
-  Trips    Trips[]
-  Events   Events[]
-  Memos    Memos[]
+  trips    Trips[]
+  events   Events[]
+  memos    Memos[]
 }
 
 model Trips {
@@ -28,10 +28,9 @@ model Trips {
   name       String
   start_date DateTime
   end_date   DateTime
-  Users      Users?   @relation(fields: [usersId], references: [id])
-  usersId    Int?
-  Events     Events[]
-  Memos      Memos[]
+  events     Events[]
+  memos      Memos[]
+  users      Users[]
 }
 
 model Events {
@@ -42,8 +41,8 @@ model Events {
   start_time  DateTime
   end_time    DateTime
   location    String
-  Users       Users[]
-  Trips       Trips?   @relation(fields: [tripsId], references: [id])
+  users       Users[]
+  trips       Trips?   @relation(fields: [tripsId], references: [id])
   tripsId     Int?
 }
 
@@ -52,8 +51,8 @@ model Memos {
   content String
   date    DateTime
   time    DateTime
-  Users   Users?   @relation(fields: [usersId], references: [id])
+  users   Users?   @relation(fields: [usersId], references: [id])
   usersId Int?
-  Trips   Trips?   @relation(fields: [tripsId], references: [id])
+  trips   Trips?   @relation(fields: [tripsId], references: [id])
   tripsId Int?
 }
