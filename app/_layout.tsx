@@ -6,8 +6,6 @@ import HomeScreen from "./Home.js";
 import SettingsScreen from "./Settings.js";
 import Trips from "./Reservations.js";
 import Plans from "./Planner.js";
-import Notes from "./Memos.js";
-import Options from "./More.js";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -36,10 +34,7 @@ export default function RootLayout() {
           />
           <Tab.Screen name="Planner" component={Plans}
           />
-          <Tab.Screen name="Memos" component={Notes}
-          />
-          <Tab.Screen name="More" component={Options}
-          />
+
 
 
           <Tab.Screen name="Settings" component={SettingsScreen}
