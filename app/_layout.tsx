@@ -34,15 +34,6 @@ export default function RootLayout() {
               ),
             }}
           />
-          <Tab.Screen name="Settings" component={SettingsScreen}
-            options={{
-              tabBarLabel: 'Settings',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="account" color={color} size={26} />
-              ),
-            }} />
-
-
           <Tab.Screen name="Reservations" component={Trips}
           />
           <Tab.Screen name="Planner" component={Plans}
@@ -51,6 +42,15 @@ export default function RootLayout() {
           />
           <Tab.Screen name="More" component={Options}
           />
+
+
+          <Tab.Screen name="Settings" component={SettingsScreen}
+            options={{
+              tabBarLabel: 'Settings',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account" color={color} size={26} />
+              ),
+            }} />
 
         </Tab.Navigator>
       </Provider>
