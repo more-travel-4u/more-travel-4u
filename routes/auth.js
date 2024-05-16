@@ -57,7 +57,6 @@ router.post("/login", async(req, res) => {
       return;
     } // if validation passes, create token and send to user
     const token = jwt.sign({ id: user.id, username: user.username }, (process.env.SECRETKEY || "My Secret Key 🗝️"))
-    console.log("I am here")
     res.status(201).send({ token })
   } catch(error) {
     throw(error);

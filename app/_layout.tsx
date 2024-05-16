@@ -8,8 +8,7 @@ export default function RootLayout() {
     <>
       <Provider store={store}>
         <Stack>
-          {/* <Stack.Screen name="Login" /> */}
-          {/* <Stack.Screen name="index" /> */}
+          <Stack.Screen name="index" />
         </Stack>
       </Provider>
     </>
