@@ -33,18 +33,42 @@ export default function RootLayout() {
             }}
           />
           <Tab.Screen name="Reservations" component={Trips}
+            options={{
+              tabBarLabel: 'Reservations',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="airplane" color={color} size={26} />
+              ),
+            }}
           />
           <Tab.Screen name="Planner" component={Plans}
+            options={{
+              tabBarLabel: 'Planner',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="notebook" color={color} size={26} />
+              ),
+            }}
           />
           <Tab.Screen name="Memos" component={Notes}
+            options={{
+              tabBarLabel: 'Memos',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="message-processing-outline" color={color} size={26} />
+              ),
+            }}
           />
           <Tab.Screen name="More" component={Options}
+            options={{
+              tabBarLabel: 'More',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
+              ),
+            }}
           />
           <Tab.Screen name="Settings" component={SettingsScreen}
             options={{
               tabBarLabel: 'Settings',
               tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="account" color={color} size={26} />
+                <MaterialCommunityIcons name="cog" color={color} size={26} />
               ),
             }} />
 
