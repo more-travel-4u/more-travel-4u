@@ -20,9 +20,9 @@ export default function RootLayout() {
       <Provider store={store}>
         <Tab.Navigator
           initialRouteName="Home"
-          activeColor="#f0edf6"
-          inactiveColor="#3e2465"
-          barStyle={{ backgroundColor: '#694fad' }}
+          activeColor="#0d47a1"
+          inactiveColor="#01497c"
+          barStyle={{ backgroundColor: '#5aa9e6' }}
         >
           <Tab.Screen name="Home" component={HomeScreen}
             options={{
