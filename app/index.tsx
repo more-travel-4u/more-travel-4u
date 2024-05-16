@@ -1,35 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import { useSelector, useDispatch } from 'react-redux';
+import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth } from './../store/authSlice.js';
+import Constants from "expo-constants";
 
+const { manifest } = Constants;
 interface IndexProps { }
 
-const Index: React.FC<IndexProps> = (props) => {
-  const [login, setLogin] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+// const API_URL = Constants?.expoConfig?.hostUri ? 
+//   Constants.expoConfig.hostUri.split(`:`).shift().concat(`:3000`)
+//   : 
+//   `https://more-travel-4u.onrender.com`;
+const API_URL = "http://localhost:3000" // for alex
 
-  const handleLogin = () => {
-    console.log("Logging in with:", login, password);
+const Index: React.FC<IndexProps> = (props) => {
+
+  const dispatch = useDispatch();
+  const { username, password, token, authMessage } = useSelector((state: any) => state.auth);
+  // const [login, setLogin] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    dispatch(clearAuth());
+    // dispatch(setAuthMessage("Login successful! Here is your token: " + token))
+  }, [token],)
+
+  const handleLogin = async (event: any) => {
+    console.log(API_URL)
+    event.preventDefault();
+    try {
+      const response = await fetch(API_URL + "/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({ username, password })
+      });
+      const data = await response.json();
+      console.log(data);
+      console.log(response.ok);
+      if (response.ok) {
+        dispatch(setToken(data.token));
+        dispatch(clearPassword()); // TODO: change line 31 upon adding more functionality.
+      } else {
+        dispatch(setAuthMessage(data.message || "Login failed. Please try again later."));
+      }
+    } catch(error) {
+      console.log(error);
+      dispatch(setAuthMessage("Network error. Please try again later."))
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text>More Travel</Text>
-      <Text>4 U</Text>
+      <Text>More Travel 4 U</Text>
+      {authMessage && <Text>{authMessage}</Text>}
       <TextInput
         style={styles.input}
-        placeholder="Login"
-        value={login}
-        onChangeText={setLogin}
+        placeholder="Enter Username"
+        value={username}
+        onChangeText={(text) => {dispatch(setUsername(text))}}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Enter Password"
         secureTextEntry={true}
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(text) => {dispatch(setPassword(text))}}
       />
       <Button title="Login" onPress={handleLogin} />
-      <Button title="Register" onPress={() => { }} />
+
+      {/* TODO: add button functionality to navigate to Registration */}
+      <Text>Don't have an account?</Text>
+      <Button title="Register Here" disabled onPress={() => {}} />
     </View>
   );
 };
