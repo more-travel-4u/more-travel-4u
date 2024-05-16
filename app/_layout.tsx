@@ -3,10 +3,13 @@ import store from '../store/index.js';
 import { Provider } from 'react-redux';
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from "./Home.js";
 import SettingsScreen from "./Settings.js";
+import Trips from "./Reservations.js";
+import Plans from "./Planner.js";
+import Notes from "./Memos.js";
+import Options from "./More.js";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -31,7 +34,24 @@ export default function RootLayout() {
               ),
             }}
           />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Settings" component={SettingsScreen}
+            options={{
+              tabBarLabel: 'Settings',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account" color={color} size={26} />
+              ),
+            }} />
+
+
+          <Tab.Screen name="Reservations" component={Trips}
+          />
+          <Tab.Screen name="Planner" component={Plans}
+          />
+          <Tab.Screen name="Memos" component={Notes}
+          />
+          <Tab.Screen name="More" component={Options}
+          />
+
         </Tab.Navigator>
       </Provider>
     </>
