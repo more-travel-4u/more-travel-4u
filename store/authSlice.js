@@ -30,7 +30,7 @@ export const authSlice = createSlice({
       state.password = '';
       state.email = '';
       state.token = null;
-      state.message = '';
+      state.authMessage = '';
     },
     clearPassword: (state) => {
       state.password = '';
