@@ -1,9 +1,7 @@
 import { Stack } from "expo-router";
 import store from '../store/index.js';
 import { Provider } from 'react-redux';
-import * as React from 'react';
 import { Text, View } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from "./Home.js";
 import SettingsScreen from "./Settings.js";
 import Trips from "./Reservations.js";
