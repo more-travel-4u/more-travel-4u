@@ -23,6 +23,7 @@ const Index: React.FC<IndexProps> = (props) => {
 
   useEffect(() => {
     if (token)
+      // TODO: change logged in, here is your token line upon addition of more functionality.
       dispatch(setAuthMessage("Login successful! Here is your token: " + token))
   }, [token],)
 
@@ -40,7 +41,7 @@ const Index: React.FC<IndexProps> = (props) => {
       const data = await response.json()
       if (response.ok) {
         dispatch(setToken(data.token));
-        dispatch(clearPassword()); // TODO: change logged in, here is your token line upon addition of more functionality.
+        dispatch(clearPassword());
       } else {
         dispatch(setAuthMessage(data.message || "Login failed. Please try again later."));
       }
