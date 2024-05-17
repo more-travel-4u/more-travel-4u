@@ -45,7 +45,7 @@ const Index: React.FC<IndexProps> = (props) => {
       } else {
         dispatch(setAuthMessage(data.message || "Login failed. Please try again later."));
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
       dispatch(setAuthMessage("Network error. Please try again later."))
     }
@@ -60,22 +60,27 @@ const Index: React.FC<IndexProps> = (props) => {
           style={styles.input}
           placeholder="Enter Username"
           value={username}
-          onChangeText={(text) => {dispatch(setUsername(text))}}
+          onChangeText={(text) => { dispatch(setUsername(text)) }}
           autoCapitalize="none"
         />
+
+
         <TextInput
           style={styles.input}
           placeholder="Enter Password"
           secureTextEntry={true}
           value={password}
-          onChangeText={(text) => {dispatch(setPassword(text))}}
+          onChangeText={(text) => { dispatch(setPassword(text)) }}
           autoCapitalize="none"
         />
+
+
         <Button title="Login" onPress={handleLogin} />
 
         {/* TODO: add button functionality to navigate to Registration */}
+
         <Text>Don't have an account?</Text>
-        <Button title="Register Here" disabled onPress={() => {}} />
+        <Button title="Register Here" disabled onPress={() => { }} />
       </View>
     </>
   );
