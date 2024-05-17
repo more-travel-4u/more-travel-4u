@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
  * @params expected req.body: { name, description?, date, start_time, end_time, location, userIds: [{id},{id},{id}] }
  * POST /api/event
  */
-router.post("/", async(req, res) => {
+router.post("/", async (req, res) => {
   try {
     const usersId = req.user.id * 1
     const tripsId = await findActiveTrip(usersId);
@@ -49,7 +49,6 @@ router.post("/", async(req, res) => {
       location, 
       userIds // IMPORTANT: userIds is an array of objects, each with a single property of id (of the user associated with the event)
     } = req.body;
-    console.log(typeof description, description)
     const event = await prisma.events.create({
       data: {
         tripsId,
