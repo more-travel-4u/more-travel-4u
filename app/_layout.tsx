@@ -1,7 +1,6 @@
-import { Stack } from "expo-router";
+// import { Stack } from "expo-router";
 import store from '../store/index.js';
 import { Provider } from 'react-redux';
-import { Text, View } from 'react-native';
 import HomeScreen from "./Home.js";
 import SettingsScreen from "./Settings.js";
 import Trips from "./Reservations.js";
