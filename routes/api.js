@@ -1,6 +1,7 @@
 import express from "express";
 import memoRouter from "./memo.js";
 import eventRouter from "./event.js";
+import tripRouter from "./trip.js";
 
 const router = express.Router();
 
@@ -12,6 +13,9 @@ router.use((req, res, next) => {
 
 // /api/memo
 router.use("/memo", memoRouter);
+
+// /api/trip
+router.use("/trip", tripRouter);
 
 // /api/event
 router.use("/event", eventRouter);
