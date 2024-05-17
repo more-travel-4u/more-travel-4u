@@ -83,22 +83,21 @@ const seed = async () => {
     for (let i = 1; i <= numSeededUsers.count; i++) {
       const numTrips = faker.number.int({ min: 0, max: 4 })
       const tripIds = [];
+      let activeTripAdded = false;
       for (let j = 0; j < numTrips; j++) {
         let tripId = faker.number.int({ min: 1, max: numSeededTrips.count })
         while (tripIds.includes(tripId))
           tripId = faker.number.int({ min: 1, max: numSeededTrips.count })
         tripIds.push(tripId);
-        // assign seed users random trips
-        const user = await prisma.users.update({
-          where: { id: i },
+        // assign seed users random trips with one active trip
+        await prisma.users_Trips.create({
           data: { 
-            trips: { 
-              connect: { 
-                id: tripId 
-              } 
-            }
+            usersId: i,
+            tripsId: tripId,
+            is_active: !activeTripAdded ? true : false
           }
         })
+        activeTripAdded = true;
         const numMemos = faker.number.int({ min: 0, max: 5 })
         for (let k = 0; k < numMemos; k++) {
           // create a number of memos for each user on each trip
