@@ -1,5 +1,6 @@
 import express from "express";
 import memoRouter from "./memo.js";
+import eventRouter from "./event.js";
 
 const router = express.Router();
 
@@ -11,6 +12,9 @@ router.use((req, res, next) => {
 
 // /api/memo
 router.use("/memo", memoRouter);
+
+// /api/event
+router.use("/event", eventRouter);
 
 export default router;
 

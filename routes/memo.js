@@ -64,7 +64,7 @@ router.put("/:memoId", async (req, res) => {
 })
 
 // for a user deleting their own existing memo for the active trip
-// expected req.params: { }
+// expected req.params: { memoId } (of the memo being updated)
 // DELETE /api/memo/:memoId
 router.delete("/:memoId", async (req, res) => {
   try {
@@ -97,5 +97,7 @@ const findActiveTrip = async (usersId) => {
     throw (error)
   }
 }
+
+export { findActiveTrip }
 
 export default router;
