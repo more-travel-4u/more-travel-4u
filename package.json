@@ -12,7 +12,8 @@
     "lint": "expo lint",
     "seed": "npx prisma migrate reset --force",
     "server": "node --watch server.js",
-    "migrate-gen": "npx prisma db push && npx prisma@5.14.0-dev.26 generate"
+    "migrate-gen": "npx prisma db push && npx prisma@5.14.0-dev.26 generate",
+    "wake-deploy": "node wakeDeploy.js"
   },
   "prisma": {
     "seed": "node db/seed.js"
