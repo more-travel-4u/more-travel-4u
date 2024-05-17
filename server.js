@@ -14,7 +14,7 @@ server.use(cors());
 server.use(morgan("dev"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-// server.use((req, _, next) => {log(req.headers); next()})
+// server.use((req, _, next) => {console.log("I am here!"); next()})
 
 //auth route
 server.use("/auth", authrouter);

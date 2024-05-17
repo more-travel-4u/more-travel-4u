@@ -10,7 +10,7 @@ interface IndexProps { }
 // set to our Render deploy:
 // const API_URL = https://more-travel-4u.onrender.com
 // More info on localtunnel: https://www.npmjs.com/package/localtunnel
-const API_URL = "https://spotty-crews-leave.loca.lt" // for alex
+const API_URL = "https://ten-phones-grow.loca.lt" // for alex
 
 const Index: React.FC<IndexProps> = (props) => {
 
