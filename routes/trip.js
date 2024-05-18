@@ -234,7 +234,13 @@ const getTrip = async (id) => {
           content: true,
           date: true,
           time: true,
-          usersId: true
+          users: {
+            select: {
+              username: true,
+              id: true,
+            }
+          }
+
         }
       }
     }

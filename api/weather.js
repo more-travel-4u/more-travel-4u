@@ -1,9 +1,7 @@
 import express from "express";
 import fetch from "node-fetch";  
 import 'dotenv/config'; // Importing 'dotenv' to load environment variables
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
 const weatherapi = express.Router();
 
 // Constants

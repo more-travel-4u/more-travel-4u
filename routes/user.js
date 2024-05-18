@@ -47,7 +47,6 @@ router.put("/", async (req, res) => {
       }
     })
     const isPwMatch = await bcrypt.compare(password, hashedPassword);
-    console.log(password, isPwMatch)
     if (!isPwMatch) return res.status(401).send({ Message: "Password incorrect." });
     const user = await prisma.users.update({
       where: {
