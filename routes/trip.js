@@ -12,49 +12,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const id = await findActiveTrip(req.user.id);
-    const trip = await prisma.trips.findFirst({
-      where: {
-        id
-      },
-      include: {
-        users_trips: {
-          select: {
-            users: {
-              select: {
-                id: true,
-                username: true
-              }
-            }
-          }
-        },
-        events: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            date: true,
-            start_time: true,
-            end_time: true,
-            location: true,
-            users: {
-              select: {
-                id: true,
-                username: true
-              }
-            }
-          }
-        },
-        memos: {
-          select: {
-            id: true,
-            content: true,
-            date: true,
-            time: true,
-            usersId: true
-          }
-        }
-      }
-    })
+    const trip = await getTrip(id);
     res.status(200).send({ trip })
   } catch (error) {
     res.status(400).send({ message: "Error getting active trip; please try again later." })
@@ -233,5 +191,57 @@ const setTripStatus = async (userId, tripId, status) => {
     console.log(error);
   }
 }
+
+/**
+ * Util function for getting a trip and all of its associated parts.
+ */
+const getTrip = async (id) => {
+  const trip = await prisma.trips.findFirst({
+    where: {
+      id
+    },
+    include: {
+      users_trips: {
+        select: {
+          users: {
+            select: {
+              id: true,
+              username: true
+            }
+          }
+        }
+      },
+      events: {
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          date: true,
+          start_time: true,
+          end_time: true,
+          location: true,
+          users: {
+            select: {
+              id: true,
+              username: true
+            }
+          }
+        }
+      },
+      memos: {
+        select: {
+          id: true,
+          content: true,
+          date: true,
+          time: true,
+          usersId: true
+        }
+      }
+    }
+  })
+  return trip;
+}
+
+export { setTripStatus, getTrip }
 
 export default router;
