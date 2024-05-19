@@ -1,6 +1,7 @@
 import express from "express";
 import prisma from "./../db/prisma.js";
 import { findActiveTrip } from "./memo.js";
+import { stringifyValueWithProperty } from "react-native-web/dist/cjs/exports/StyleSheet/compiler/index.js";
 
 const router = express.Router();
 
@@ -158,10 +159,8 @@ router.put("/:tripId", async (req, res) => { // this function was a tricky one
  * If a user has an active trip and they want to set another trip's status to active,
  * the active trip will first be changed to false. Next, we will change the chosen trip
  * to true. Otherwise, set the trip status.
- * Honestly, this is not a very good function because it lacks a return, and it has no validation for maintaining
- * the fact that each user can only have one active trip. Validation must be conducted elsewhere, or this function
- * needs to be revised.
- * when it comes to 
+ * Noted that this function has no validation for maintaining the rule that each user can only 
+ * have one active trip. Validation must be conducted elsewhere, or this function needs to be revised.
  * @param {number} userId - the id of the user
  * @param {number} tripId - the id of the trip
  * @param {boolean} status - the trip status to switch to
@@ -192,9 +191,14 @@ const setTripStatus = async (userId, tripId, status) => {
   }
 }
 
+ob
+
 /**
  * Util function for getting a trip and all of its associated parts.
+ * @param {number} id - the id of the trip
+ * @returns {object} trip - the trip information
  */
+
 const getTrip = async (id) => {
   const trip = await prisma.trips.findFirst({
     where: {
