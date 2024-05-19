@@ -191,8 +191,6 @@ const setTripStatus = async (userId, tripId, status) => {
   }
 }
 
-ob
-
 /**
  * Util function for getting a trip and all of its associated parts.
  * @param {number} id - the id of the trip
