@@ -4,6 +4,8 @@ import 'dotenv/config'; // Importing 'dotenv' to load environment variables
 
 const weatherapi = express.Router();
 
+// WEATHERSTACK API DOCUMENTATION: https://weatherstack.com/documentation
+
 // Constants
 const WEATHERSTACK_API_KEY = process.env.WEATHERSTACK_API_KEY; // Accessing API key from environment variable
 const WEATHERSTACK_API_URL = "http://api.weatherstack.com/current";
