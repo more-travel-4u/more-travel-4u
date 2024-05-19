@@ -3,6 +3,7 @@ import memoRouter from "./memo.js";
 import eventRouter from "./event.js";
 import tripRouter from "./trip.js";
 import userRouter from "./user.js";
+import weatherRouter from "./external_api/weather.js";
 
 const router = express.Router();
 
@@ -23,6 +24,11 @@ router.use("/event", eventRouter);
 
 // /api/user
 router.use("/user", userRouter);
+
+// EXTERNAL APIS
+
+// /api/weather
+router.use("/weather", weatherRouter);
 
 export default router;
 

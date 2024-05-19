@@ -17,7 +17,8 @@ const weatherValidate = (body) => {
 };
 
 // Endpoint to fetch weather data for a city
-weatherapi.post('/weather', async (req, res) => {
+// POST /api/weather
+weatherapi.post('/', async (req, res) => {
   try {
     // Validate city input
     if (!weatherValidate(req.body)) {
@@ -42,7 +43,8 @@ weatherapi.post('/weather', async (req, res) => {
     res.status(200).send({
       city,
       temperature,
-      description: weather_descriptions[0]
+      description: weather_descriptions[0],
+      data // snuck in the whole data object here in case anybody needs it
     });
   } catch (error) {
     res.status(500).send({ message: "Server error. Please try again later." });
