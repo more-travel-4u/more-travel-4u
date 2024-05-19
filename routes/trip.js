@@ -1,7 +1,6 @@
 import express from "express";
 import prisma from "./../db/prisma.js";
 import { findActiveTrip } from "./memo.js";
-import { stringifyValueWithProperty } from "react-native-web/dist/cjs/exports/StyleSheet/compiler/index.js";
 
 const router = express.Router();
 
@@ -242,7 +241,6 @@ const getTrip = async (id) => {
               id: true,
             }
           }
-
         }
       }
     }
