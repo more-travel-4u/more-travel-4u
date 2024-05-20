@@ -1,10 +1,10 @@
 import express from "express";
 import fetch from "node-fetch";  
 import 'dotenv/config'; // Importing 'dotenv' to load environment variables
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
 const weatherapi = express.Router();
+
+// WEATHERSTACK API DOCUMENTATION: https://weatherstack.com/documentation
 
 // Constants
 const WEATHERSTACK_API_KEY = process.env.WEATHERSTACK_API_KEY; // Accessing API key from environment variable
@@ -19,7 +19,8 @@ const weatherValidate = (body) => {
 };
 
 // Endpoint to fetch weather data for a city
-weatherapi.post('/weather', async (req, res) => {
+// POST /api/weather
+weatherapi.post('/', async (req, res) => {
   try {
     // Validate city input
     if (!weatherValidate(req.body)) {
@@ -44,7 +45,8 @@ weatherapi.post('/weather', async (req, res) => {
     res.status(200).send({
       city,
       temperature,
-      description: weather_descriptions[0]
+      description: weather_descriptions[0],
+      data // snuck in the whole data object here in case anybody needs it
     });
   } catch (error) {
     res.status(500).send({ message: "Server error. Please try again later." });

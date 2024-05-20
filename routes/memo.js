@@ -83,7 +83,7 @@ router.delete("/:memoId", async (req, res) => {
 // util function for getting active trip for a user
 const findActiveTrip = async (usersId) => {
   try {
-    const { tripsId } = await prisma.users_Trips.findFirst({
+    const activeTripId = await prisma.users_Trips.findFirst({
       where: {
         usersId,
         is_active: true
@@ -92,7 +92,8 @@ const findActiveTrip = async (usersId) => {
         tripsId: true
       }
     })
-    return tripsId;
+    if (!activeTripId) return activeTripId
+    else return activeTripId.tripsId
   } catch (error) {
     throw (error)
   }
