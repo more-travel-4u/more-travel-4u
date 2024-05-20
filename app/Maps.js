@@ -5,18 +5,18 @@ import MapView, { Marker } from 'react-native-maps';
 
 let locationsOfInterest = [
   {
-    title: "First",
+    title: "Vegas",
     location: {
-      latitude: -27.2,
-      longitude: 145
+      latitude: 36.1517,
+      longitude: -115.1494
     },
     description: "First Marker"
   },
   {
-    title: "Second",
+    title: "Tokyo",
     location: {
-      latitude: -30.2,
-      longitude: 150
+      latitude: 35.6764,
+      longitude: 139.6500
     },
     description: "Second Marker"
   },
@@ -46,10 +46,10 @@ export default function Maps() {
         style={styles.map}
         onRegionChange={onRegionChange}
         initialRegion={{
-          latitude: -26.8526,
-          latitudeDelta: 27.4990,
-          longitude: 148.1104,
-          longitudeDelta: 15.9521,
+          latitude: 33.4369,
+          latitudeDelta: 6.4264,
+          longitude: -96.7203,
+          longitudeDelta: 4.3986,
         }}
       >
         {showLocationsOfInterest()}
