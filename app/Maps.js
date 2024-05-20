@@ -22,7 +22,7 @@ let locationsOfInterest = [
   },
 ];
 
-export default function Options() {
+export default function Maps() {
   const onRegionChange = (region) => {
     console.log(region);
   };
