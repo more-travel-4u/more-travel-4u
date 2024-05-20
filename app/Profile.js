@@ -1,13 +1,13 @@
-import { BottomTabBar } from '@react-navigation/bottom-tabs';
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useSelector, useDispatch, } from 'react-redux';
+import { updateUser } from 'react-redux';
+
 
 const ProfilePage = () => {
-  const [user, setUser] = useState({
-    name: "Username",
-    password: "ABC123",
-    email: "foo@bar.com"
-  });
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(user);
@@ -20,15 +20,12 @@ const ProfilePage = () => {
   };
 
   const handleSave = () => {
-    setUser(formData);
+    dispatch(updateUser(formData));
     setIsEditing(false);
-    // send updated data to backend from here
-    console.log('Profile info saved:', formData);
+    console.log('Profile saved:', formData);
   };
 
   return (
-
-
     <View style={styles.container}>
       <Text style={styles.header}>Profile Page</Text>
       <View style={styles.inputGroup}>
@@ -40,10 +37,9 @@ const ProfilePage = () => {
             onChangeText={(value) => handleInputChange('username', value)}
           />
         ) : (
-          <Text>{user.name}</Text>
+          <Text>{user.username}</Text>
         )}
       </View>
-
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Password:</Text>
@@ -58,7 +54,6 @@ const ProfilePage = () => {
         )}
       </View>
 
-
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Email:</Text>
         {isEditing ? (
@@ -71,7 +66,6 @@ const ProfilePage = () => {
           <Text>{user.email}</Text>
         )}
       </View>
-
 
       <View style={styles.buttonGroup}>
         {isEditing ? (
@@ -86,6 +80,7 @@ const ProfilePage = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     marginTop: 175,
-    alignContent: BottomTabBar,
+    alignContent: ProfilePage,
   },
 });
 
