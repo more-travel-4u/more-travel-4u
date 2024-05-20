@@ -57,6 +57,12 @@ export default function RootLayout() {
             }}
           />
           <Tab.Screen name="Profile" component={ProfilePage}
+            options={{
+              tabBarLabel: 'Profile',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account" color={color} size={26} />
+              ),
+            }}
           />
           <Tab.Screen name="More" component={Options}
             options={{
