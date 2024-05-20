@@ -7,7 +7,7 @@ import Trips from "./Reservations.js";
 import Plans from "./Planner.js";
 import Notes from "./Memos.js";
 import Options from "./More.js";
-import ProfilePage from "./Profile.js"
+import Profile from "./Profile.js"
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -56,7 +56,13 @@ export default function RootLayout() {
               ),
             }}
           />
-          <Tab.Screen name="Profile" component={ProfilePage}
+          <Tab.Screen name="Profile" component={Profile}
+            options={{
+              tabBarLabel: 'Profile',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="message-processing-outline" color={color} size={26} />
+              ),
+            }}
           />
           <Tab.Screen name="More" component={Options}
             options={{
