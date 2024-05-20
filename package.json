@@ -11,8 +11,9 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "seed": "npx prisma migrate reset --force",
-    "server": "node --watch server.js",
-    "migrate-gen": "npx prisma db push && npx prisma@5.14.0-dev.26 generate"
+    "server": "nodemon server.js",
+    "migrate-gen": "npx prisma db push && npx prisma@5.14.0-dev.26 generate",
+    "wake-deploy": "node wakeDeploy.js"
   },
   "prisma": {
     "seed": "node db/seed.js"
@@ -43,6 +44,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.0",
     "path": "^0.12.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",

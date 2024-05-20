@@ -14,23 +14,23 @@ datasource db {
 }
 
 model Users {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  password String
-  username String   @unique
-  trips    Trips[]
-  events   Events[]
-  memos    Memos[]
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  username    String        @unique
+  users_trips Users_Trips[]
+  events      Events[]
+  memos       Memos[]
 }
 
 model Trips {
-  id         Int      @id @default(autoincrement())
-  name       String
-  start_date DateTime
-  end_date   DateTime
-  events     Events[]
-  memos      Memos[]
-  users      Users[]
+  id          Int           @id @default(autoincrement())
+  name        String
+  start_date  DateTime
+  end_date    DateTime
+  events      Events[]
+  memos       Memos[]
+  users_trips Users_Trips[]
 }
 
 model Events {
@@ -55,4 +55,13 @@ model Memos {
   usersId Int?
   trips   Trips?   @relation(fields: [tripsId], references: [id])
   tripsId Int?
+}
+
+model Users_Trips {
+  id        Int     @id @default(autoincrement())
+  users     Users?  @relation(fields: [usersId], references: [id])
+  usersId   Int
+  trips     Trips?  @relation(fields: [tripsId], references: [id])
+  tripsId   Int
+  is_active Boolean
 }
