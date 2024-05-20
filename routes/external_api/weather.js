@@ -21,6 +21,7 @@ const weatherValidate = (body) => {
 // Endpoint to fetch weather data for a city
 // POST /api/weather
 weatherapi.post('/', async (req, res) => {
+  console.log("Hello!!")
   try {
     // Validate city input
     if (!weatherValidate(req.body)) {
@@ -29,7 +30,6 @@ weatherapi.post('/', async (req, res) => {
     }
 
     const { city } = req.body;
-    console.log("Hello!!")
 
     // Fetch weather data from Weatherstack API
     const response = await fetch(`${WEATHERSTACK_API_URL}?access_key=${WEATHERSTACK_API_KEY}&query=${city}`);
