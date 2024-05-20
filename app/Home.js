@@ -2,11 +2,15 @@ import { Text, View, Button, StyleSheet, TextInput, } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text style={styles.header}>Home Page</Text>
       <WeatherInput />
       <PlannerPreview />
       <ReservationsPreview />
+        <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      />
     </View>
   );
 }
