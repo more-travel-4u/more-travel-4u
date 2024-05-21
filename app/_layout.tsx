@@ -6,6 +6,8 @@ import SettingsScreen from "./Settings.js";
 import Trips from "./Reservations.js";
 import Plans from "./Planner.js";
 import Notes from "./Memos.js";
+import Weather from "./Weather.js";
+import Maps from "./Maps.js";
 import Options from "./More.js";
 import Profile from "./Profile.js"
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -79,7 +81,20 @@ export default function RootLayout() {
                 <MaterialCommunityIcons name="cog" color={color} size={26} />
               ),
             }} />
-
+          <Tab.Screen name="Maps" component={Maps}
+            options={{
+              tabBarLabel: 'Maps',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="cog" color={color} size={26} />
+              ),
+            }} />          
+            <Tab.Screen name="Weather" component={Weather}
+            options={{
+              tabBarLabel: 'Weather',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="cog" color={color} size={26} />
+              ),
+            }} />
         </Tab.Navigator>
       </Provider>
     </>
