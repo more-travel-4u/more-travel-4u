@@ -8,9 +8,9 @@ interface IndexProps { }
 // IMPORTANT NOTE: The api_url currently is specific to alex only. He is using localtunnel to create an API_URL web url
 // so that Expo Go can communicate with his locally hosted server for testing purposes. During production, API_URL should be
 // set to our Render deploy:
-// const API_URL = https://more-travel-4u.onrender.com
 // More info on localtunnel: https://www.npmjs.com/package/localtunnel
-const API_URL = "https://ten-phones-grow.loca.lt" // for alex
+// export const API_URL = https://more-travel-4u.onrender.com
+export const API_URL = "https://hungry-bikes-bet.loca.lt" // for alex
 
 const Index: React.FC<IndexProps> = (props) => {
 
