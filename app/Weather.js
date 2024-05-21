@@ -34,7 +34,6 @@ const Weather = () => {
         setIsLoading(false);
       }
     }
-    console.log("Hello")
     getWeather();
     return (() => {setIsLoading(true)})
   }, [isFocused],);
