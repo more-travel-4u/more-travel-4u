@@ -21,7 +21,6 @@ const weatherValidate = (body) => {
 // Endpoint to fetch weather data for a city
 // POST /api/weather
 weatherapi.post('/', async (req, res) => {
-  console.log("Hello!!")
   try {
     // Validate city input
     if (!weatherValidate(req.body)) {
