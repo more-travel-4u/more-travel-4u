@@ -10,6 +10,7 @@ import Weather from "./Weather.js";
 import Maps from "./Maps.js";
 import Options from "./More.js";
 import Profile from "./Profile.js"
+import Register from "./Register.js"
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -91,6 +92,13 @@ export default function RootLayout() {
             <Tab.Screen name="Weather" component={Weather}
             options={{
               tabBarLabel: 'Weather',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="cog" color={color} size={26} />
+              ),
+            }} />
+            <Tab.Screen name="Register" component={Register}
+            options={{
+              tabBarLabel: 'Register',
               tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="cog" color={color} size={26} />
               ),
