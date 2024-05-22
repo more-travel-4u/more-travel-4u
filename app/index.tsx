@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-import { useSelector, useDispatch } from 'react-redux';
-import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth } from './../store/authSlice.js';
+import { useSelector, useDispatch, } from 'react-redux';
+import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth, } from './../store/authSlice.js';
 
 interface IndexProps { }
 

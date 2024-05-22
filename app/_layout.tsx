@@ -8,6 +8,9 @@ import Plans from "./Planner.js";
 import Notes from "./Memos.js";
 import Options from "./More.js";
 import Profile from "./Profile.js"
+import ReservationPage from './Reservations.js';
+import { NavigationContainer } from '@react-navigation/native';
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -32,7 +35,7 @@ export default function RootLayout() {
               ),
             }}
           />
-          <Tab.Screen name="Reservations" component={Trips}
+          <Tab.Screen name="Reservations" component={ReservationPage}
             options={{
               tabBarLabel: 'Reservations',
               tabBarIcon: ({ color }) => (
