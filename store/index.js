@@ -13,11 +13,8 @@ const store = configureStore({
     auth: authReducer,
     weather: weatherReducer,
     user: userReducer,
-  },
-  rootReducer: {
-    rootReducer: combineReducers,
-    user: userReducer,
     reservation: reservationReducer,
+    rootReducer: combineReducers,
   },
 });
 
