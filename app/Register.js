@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { setUsername, setPassword, setEmail, clearAuth } from '../store/authSlice';
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -37,6 +39,9 @@ const Register = () => {
       dispatch(clearAuth());
 
       Alert.alert('Registration Successful', 'You have been registered successfully.');
+      
+      // Navigate to Home screen
+      navigation.navigate('Home');
     } catch (error) {
       Alert.alert('Registration Failed', 'An error occurred during registration. Please try again.');
       console.error('Registration Error:', error);
