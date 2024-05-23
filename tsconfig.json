@@ -14,5 +14,8 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/index.tsx"
-  ]
+  ],
+  "allowImportingTsExtensions": true,
+  "moduleResolution": "bundler",
+  "noEmit": true
 }

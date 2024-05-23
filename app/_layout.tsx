@@ -1,4 +1,3 @@
-// import { Stack } from "expo-router";
 import store from '../store/index.js';
 import { Provider } from 'react-redux';
 import HomeScreen from "./Home.js";
@@ -12,10 +11,35 @@ import Options from "./More.js";
 import Profile from "./Profile.js"
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as SecureStore from 'expo-secure-store';
+import { useEffect } from 'react';
+import { setToken } from './../store/userSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { API_URL } from './index.tsx';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function RootLayout() {
+
+  // const dispatch = useDispatch();
+  // const token = useSelector(state => state.user.token)
+ 
+
+  useEffect(() => {
+    if (!token)
+      (async function getToken() {
+        try {
+          const theToken = await SecureStore.getItemAsync("token");
+          if (theToken) {
+            const response = await fetch()
+          }
+        } catch (error) {
+          console.error(error);
+        }
+        dispatch(setToken(theToken));
+      })();
+  }, [],)
+
 
   return (
     <>

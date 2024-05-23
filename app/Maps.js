@@ -42,6 +42,7 @@ export default function Maps() {
 
   return (
     <View style={styles.container}>
+      {console.log(MapView)}
       <MapView
         style={styles.map}
         onRegionChange={onRegionChange}
