@@ -38,6 +38,15 @@ server.get("/health", (_, res) => {
   res.status(200).send({ check: "Health 👍" })
 })
 
+server.get("/verify", (req, res) => {
+  try {
+    if (req.user) res.status(200).send(req.user);
+    else res.status(401).send({ message: "Not Logged In" });
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 server.get("/", (_, res) => {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.send(`<p style="font-size:10em">🌊🏖️🧋🌴<p>`);

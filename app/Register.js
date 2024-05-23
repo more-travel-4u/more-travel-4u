@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import { setUsername, setPassword, setEmail, clearAuth } from '../store/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUsername, setPassword, setEmail, clearAuth, setToken, setAuthMessage } from './../store/authSlice.js';
+import * as SecureStore from 'expo-secure-store'
+import { API_URL } from './Login.js';
 
-const Register = () => {
+const Register = ({ navigation }) => {
+
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const authMessage = useSelector(state => state.auth.authMessage)
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   });
+
+  useEffect(() => {
+    return (() => {
+      dispatch(setAuthMessage(""))
+      setFormData({
+        username: '',
+        email: '',
+        password: ''
+      })
+  })
+  }, [],)
 
   const handleChange = (name, value) => {
     setFormData(prevState => ({
@@ -20,7 +33,8 @@ const Register = () => {
     }));
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (event) => {
+    event.preventDefault();
     const { username, email, password } = formData;
 
     // Basic validation
@@ -30,26 +44,35 @@ const Register = () => {
     }
 
     try {
-      // Dispatch actions to update Redux state
-      dispatch(setUsername(username));
-      dispatch(setPassword(password));
-      dispatch(setEmail(email));
-
-      // For demonstration purposes, let's clear the form fields after registration
-      dispatch(clearAuth());
-
-      Alert.alert('Registration Successful', 'You have been registered successfully.');
-      
-      // Navigate to Home screen
-      navigation.navigate('Home');
+      const response = await fetch(API_URL + "/auth/register", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      if (response.ok) {
+        dispatch(setToken(data.token));
+        await SecureStore.setItemAsync("token", data.token);
+        setFormData({
+          username: '',
+          email: '',
+          password: ''
+        })
+      } else {
+        dispatch(setAuthMessage(data.message || "Registration failed. Please try again later."))
+      }
     } catch (error) {
-      Alert.alert('Registration Failed', 'An error occurred during registration. Please try again.');
+      dispatch(setAuthMessage("Network error. Please try again later."))
       console.error('Registration Error:', error);
     }
   };
 
   return (
     <View style={styles.container}>
+      {authMessage && <Text>{authMessage}</Text>}
       <Text style={styles.title}>Register</Text>
       <View style={styles.inputContainer}>
         <Text>Username:</Text>
@@ -78,6 +101,8 @@ const Register = () => {
         />
       </View>
       <Button title="Register" onPress={handleRegister} />
+      <Text>Already have an account?</Text>
+      <Button title="Login Here" onPress={() => navigation.navigate("Login")} />
     </View>
   );
 };

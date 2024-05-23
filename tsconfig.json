@@ -13,6 +13,9 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "app/index.tsx"
-  ]
+    "app/Login.js"
+, "app/_layout.js"  ],
+  "allowImportingTsExtensions": true,
+  "moduleResolution": "bundler",
+  "noEmit": true
 }
