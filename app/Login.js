@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth } from './../store/authSlice.js';
-
-interface IndexProps { }
+import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth } from '../store/authSlice.js';
+import * as SecureStore from 'expo-secure-store';
+import Register from "./Register.js";
 
 // IMPORTANT NOTE: The api_url currently is specific to alex only. He is using localtunnel to create an API_URL web url
 // so that Expo Go can communicate with his locally hosted server for testing purposes. During production, API_URL should be
 // set to our Render deploy:
 // More info on localtunnel: https://www.npmjs.com/package/localtunnel
 // export const API_URL = https://more-travel-4u.onrender.com
-export const API_URL = "https://hungry-bikes-bet.loca.lt" // for alex
+export const API_URL = "https://slimy-moments-smile.loca.lt" // for alex
 
-const Index: React.FC<IndexProps> = (props) => {
+const Login = ({ navigation }) => {
 
   const dispatch = useDispatch();
-  const { username, password, token, authMessage } = useSelector((state: any) => state.auth);
+  const { username, password, token, authMessage } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(clearAuth())
@@ -27,7 +27,7 @@ const Index: React.FC<IndexProps> = (props) => {
       dispatch(setAuthMessage("Login successful! Here is your token: " + token))
   }, [token],)
 
-  const handleLogin = async (event: any) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch(API_URL + "/auth/login", {
@@ -41,6 +41,7 @@ const Index: React.FC<IndexProps> = (props) => {
       const data = await response.json()
       if (response.ok) {
         dispatch(setToken(data.token));
+        await SecureStore.setItemAsync("token", data.token);
         dispatch(clearPassword());
       } else {
         dispatch(setAuthMessage(data.message || "Login failed. Please try again later."));
@@ -80,7 +81,7 @@ const Index: React.FC<IndexProps> = (props) => {
         {/* TODO: add button functionality to navigate to Registration */}
 
         <Text>Don't have an account?</Text>
-        <Button title="Register Here" disabled onPress={() => { }} />
+        <Button title="Register Here" onPress={() => navigation.navigate("Register")} />
       </View>
     </>
   );
@@ -103,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Index;
+export default Login

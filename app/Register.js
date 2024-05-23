@@ -3,8 +3,9 @@ import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { setUsername, setPassword, setEmail, clearAuth } from '../store/authSlice';
+import * as SecureStore from 'expo-secure-store'
 
-const Register = () => {
+const Register = ({ navigate }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [formData, setFormData] = useState({
@@ -40,8 +41,6 @@ const Register = () => {
 
       Alert.alert('Registration Successful', 'You have been registered successfully.');
       
-      // Navigate to Home screen
-      navigation.navigate('Home');
     } catch (error) {
       Alert.alert('Registration Failed', 'An error occurred during registration. Please try again.');
       console.error('Registration Error:', error);
@@ -78,6 +77,8 @@ const Register = () => {
         />
       </View>
       <Button title="Register" onPress={handleRegister} />
+      <Text>Already have an account?</Text>
+      <Button title="Login Here" onPress={() => navigation.navigate("Login")} />
     </View>
   );
 };
