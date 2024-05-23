@@ -1,5 +1,5 @@
-export const SET_RESERVATION = 'SET_RESERVATION';
-export const UPDATE_RESERVATION = 'UPDATE_RESERVATION';
+const SET_RESERVATION = 'SET_RESERVATION';
+const UPDATE_RESERVATION = 'UPDATE_RESERVATION';
 
 export const setReservation = (reservation) => ({
   type: SET_RESERVATION,
