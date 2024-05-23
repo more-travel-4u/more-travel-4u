@@ -1,14 +1,4 @@
-import { SET_RESERVATION, UPDATE_RESERVATION } from "../store/reservationReducer.js";
-
-const setReservation = (reservation) => ({
-  type: SET_RESERVATION,
-  payload: reservation,
-});
-
-const updateReservation = (reservation) => ({
-  type: UPDATE_RESERVATION,
-  payload: reservation,
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   checkIn: '',
@@ -17,24 +7,27 @@ const initialState = {
   confirmationNumber: '',
   hotelAddress: '',
   hotelName: '',
-  agreedRate: ''
+  agreedRate: '',
 };
 
-const reservationReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_RESERVATION:
+const reservationSlice = createSlice({
+  name: 'reservation',
+  initialState,
+  reducers: {
+    setReservation: (state, action) => {
       return {
         ...state,
         ...action.payload,
       };
-    case UPDATE_RESERVATION:
+    },
+    updateReservation: (state, action) => {
       return {
         ...state,
         ...action.payload,
       };
-    default:
-      return state;
-  }
-};
+    },
+  },
+});
 
-export default reservationReducer; updateReservation; setReservation;
+export const { setReservation, updateReservation } = reservationSlice.actions;
+export default reservationSlice.reducer;
