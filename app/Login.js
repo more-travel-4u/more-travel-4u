@@ -18,8 +18,8 @@ const Login = ({ navigation }) => {
   const { username, password, token, authMessage } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { 
-    dispatch(clearAuth()) 
+  useEffect(() => {
+    dispatch(clearAuth())
     return (() => {
       dispatch(setAuthMessage(""))
     })
@@ -58,7 +58,7 @@ const Login = ({ navigation }) => {
       <View style={styles.container}>
         <Text>More Travel 4 U</Text>
         {authMessage && <Text>{authMessage}</Text>}
-        {isLoading && <ActivityIndicator animating={true} color={MD2Colors.red800}/>}
+        {isLoading && <ActivityIndicator animating={true} color={MD2Colors.red800} />}
         <TextInput
           style={styles.input}
           placeholder="Enter Username"
@@ -79,7 +79,7 @@ const Login = ({ navigation }) => {
 
 
         <Button title="Login" onPress={handleLogin} />
-        
+
         <Text>Don't have an account?</Text>
         <Button title="Register Here" onPress={() => navigation.navigate("Register")} />
       </View>
