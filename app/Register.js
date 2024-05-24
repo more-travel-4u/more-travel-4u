@@ -78,26 +78,32 @@ const Register = ({ navigation }) => {
         <Text>Username:</Text>
         <TextInput
           style={styles.input}
+          placeholder="Enter Username"
           value={formData.username}
           onChangeText={(text) => handleChange('username', text)}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
         <Text>Email:</Text>
         <TextInput
           style={styles.input}
+          placeholder="Enter Email"
           value={formData.email}
           onChangeText={(text) => handleChange('email', text)}
           keyboardType="email-address"
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
         <Text>Password:</Text>
         <TextInput
           style={styles.input}
+          placeholder="Enter Password"
           value={formData.password}
           onChangeText={(text) => handleChange('password', text)}
           secureTextEntry={true}
+          autoCapitalize="none"
         />
       </View>
       <Button title="Register" onPress={handleRegister} />

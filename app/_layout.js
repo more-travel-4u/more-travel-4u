@@ -22,6 +22,7 @@ import { View, Text } from 'react-native';
 import { setToken } from '../store/authSlice.js';
 
 const Tab = createMaterialBottomTabNavigator();
+
 const Stack = createNativeStackNavigator();
 
 function RootLayout() {

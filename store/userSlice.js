@@ -8,6 +8,7 @@ export const userSlice = createSlice({
     email: "",
     token: "",
     userMessage: "",
+    newPassword: "",
     password: "", // TODO: secure user password
   },
   reducers: {
@@ -26,13 +27,15 @@ export const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setNewPassword: (state, action) => {
+      state.newPassword = action.payload;
+    },
     setUserMessage: (state, action) => {
       state.userMessage = action.payload;
     },
     setUser: (state, action) => {
       state.username = action.payload.username;
       state.email = action.payload.email;
-      state.password = action.payload.password;
     },
     clearAll: (state) => {
       state.username = "";
@@ -53,5 +56,6 @@ export const {
   setUserMessage,
   setUser,
   clearAll,
+  setNewPassword,
 } = userSlice.actions;
 export default userSlice.reducer;
