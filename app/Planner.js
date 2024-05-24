@@ -1,9 +1,6 @@
 import FloatingAdd from './FloatingAdd.js';
 import FloatingDateChange from './FloatingDateChange.js';
 import { useState, useEffect } from 'react';
-import { Button } from 'react-native';
-// import { Button, Text } from 'react-native-paper';
-import { Text } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
