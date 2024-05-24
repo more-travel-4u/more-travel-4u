@@ -9,8 +9,8 @@ import * as SecureStore from 'expo-secure-store';
 // so that Expo Go can communicate with his locally hosted server for testing purposes. During production, API_URL should be
 // set to our Render deploy:
 // More info on localtunnel: https://www.npmjs.com/package/localtunnel
-// export const API_URL = "https://more-travel-4u.onrender.com"
-export const API_URL = "https://eager-crabs-roll.loca.lt" // for alex
+export const API_URL = "https://more-travel-4u.onrender.com"
+// export const API_URL = "https://eager-crabs-roll.loca.lt" // for alex
 
 const Login = ({ navigation }) => {
 
@@ -79,9 +79,7 @@ const Login = ({ navigation }) => {
 
 
         <Button title="Login" onPress={handleLogin} />
-
-        {/* TODO: add button functionality to navigate to Registration */}
-
+        
         <Text>Don't have an account?</Text>
         <Button title="Register Here" onPress={() => navigation.navigate("Register")} />
       </View>
