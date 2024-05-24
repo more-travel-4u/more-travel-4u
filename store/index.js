@@ -3,7 +3,7 @@ import authReducer from "./authSlice.js"
 import weatherReducer from "./weatherSlice.js";
 import userReducer from "./userSlice.js";
 import { combineReducers } from 'redux';
-import reservationReducer from './reservationReducer.js';
+import reservationSlice from './reservationSlice.js';
 
 
 
@@ -13,8 +13,7 @@ const store = configureStore({
     auth: authReducer,
     weather: weatherReducer,
     user: userReducer,
-    reservation: reservationReducer,
-    rootReducer: combineReducers,
+    reservation: reservationSlice,
   },
 });
 

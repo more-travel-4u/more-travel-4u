@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { setReservation, updateReservation, checkIn, checkOut, itineraryNumber, confirmationNumber, hotelAddress, hotelName, agreedRate } from "../store/reservationReducer";
+import { setReservation, updateReservation, checkIn, checkOut, itineraryNumber, confirmationNumber, hotelAddress, hotelName, agreedRate } from "../store/reservationSlice";
 
 const ReservationPage = () => {
   const dispatch = useDispatch();
