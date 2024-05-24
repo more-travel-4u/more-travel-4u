@@ -3,11 +3,13 @@ import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUsername, setPassword, setEmail, clearAuth, setToken, setAuthMessage } from './../store/authSlice.js';
 import * as SecureStore from 'expo-secure-store'
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { API_URL } from './Login.js';
 
 const Register = ({ navigation }) => {
 
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const authMessage = useSelector(state => state.auth.authMessage)
   const [formData, setFormData] = useState({
     username: '',
@@ -42,7 +44,7 @@ const Register = ({ navigation }) => {
       Alert.alert('Validation Failed', 'All fields are required.');
       return;
     }
-
+    setIsLoading(true);
     try {
       const response = await fetch(API_URL + "/auth/register", {
         method: "POST",
@@ -67,37 +69,46 @@ const Register = ({ navigation }) => {
     } catch (error) {
       dispatch(setAuthMessage("Network error. Please try again later."))
       console.error('Registration Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
       {authMessage && <Text>{authMessage}</Text>}
+      {isLoading && <ActivityIndicator animating={true} color={MD2Colors.blue300}/>}
       <Text style={styles.title}>Register</Text>
       <View style={styles.inputContainer}>
         <Text>Username:</Text>
         <TextInput
           style={styles.input}
+          placeholder="Enter Username"
           value={formData.username}
           onChangeText={(text) => handleChange('username', text)}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
         <Text>Email:</Text>
         <TextInput
           style={styles.input}
+          placeholder="Enter Email"
           value={formData.email}
           onChangeText={(text) => handleChange('email', text)}
           keyboardType="email-address"
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
         <Text>Password:</Text>
         <TextInput
           style={styles.input}
+          placeholder="Enter Password"
           value={formData.password}
           onChangeText={(text) => handleChange('password', text)}
           secureTextEntry={true}
+          autoCapitalize="none"
         />
       </View>
       <Button title="Register" onPress={handleRegister} />

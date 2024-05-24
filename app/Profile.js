@@ -2,20 +2,19 @@ import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch, } from 'react-redux';
 // created userSlice.js, and imported these reducers i made
-import { setUser, setEmail, setPassword, setUsername, setUserMessage, clearAll } from './../store/userSlice.js';
-import { useIsFocused } from '@react-navigation/native';
+import { setUser, setEmail, setPassword, setUsername, setUserMessage, clearAll, setNewPassword } from './../store/userSlice.js';
+// import { useIsFocused } from '@react-navigation/native';
+import { API_URL } from './Login.js';
 
 const ProfilePage = () => {
 
   const dispatch = useDispatch();
   // getting the state variables username, password, email, and userMessage (for use of settings messages) from Redux state store
-  const { username, password, email, userMessage } = useSelector((state) => state.user); 
-  const isFocused = useIsFocused();
+  const { username, password, email, userMessage, newPassword } = useSelector((state) => state.user); 
+  const token = useSelector(state => state.auth.token);
+  // const isFocused = useIsFocused();
   const [isEditing, setIsEditing] = useState(false);
 
-  // HARDCODED TOKEN FOR USER ID#1 FOR TESTING FOR NOW
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhYWEiLCJpYXQiOjE3MTU5NTUxMTF9.qr0AsAO0KQAF6OBjoIgg7dMNvFj4b9YNkZNR-M7DumU"
-  const API_URL = "https://silent-parrots-tan.loca.lt" // PLACEHOLDER FOR TESTING, URL SPECIFIC TO ALEX
 
 
   useEffect(() => {
@@ -30,14 +29,15 @@ const ProfilePage = () => {
           }
         }) 
         const json = await response.json();
+        console.log(json.user)
         dispatch(setUser(json.user))
       } catch (error) {
         console.error("ERROR HERE:", error);
       }
     }
     getUser();
-    return (() => {dispatch(clearAll())})
-  }, [isFocused],);
+    return (() => setIsEditing(false))
+  }, [],);
 
   const handleInputChange = (name, value) => {
     // upon input change when editing, update Redux states
@@ -47,13 +47,20 @@ const ProfilePage = () => {
       dispatch(setPassword(value))
     else if (name === "email")
       dispatch(setEmail(value))
+    else if (name === "newPassword")
+      dispatch(setNewPassword(value))
   };
 
   const handleSave = async (event) => {
     // upon hitting save, update username/password/email in database
     // IMPORTANT NOTE: CURRENTLY THIS ONLY WORKS IF USERNAME, PASSWORD, AND EMAIL ARE ALL FILLED IN
     event.preventDefault();
-    try { 
+    if (!username || !email || !password) {
+      dispatch(setUserMessage("Please fill out all fields when editing your information."));
+      return;
+    }
+    console.log(username, password, newPassword, email)
+    try {
       const response = await fetch(API_URL + "/api/user", {
         method: "PUT",
         headers: {
@@ -62,51 +69,27 @@ const ProfilePage = () => {
         },
         body: JSON.stringify({
           username,
-          newPassword: password,
+          newPassword,
           email,
-          password: "password" //hard-coded for testing (remember to re run seed to get the password for user 1 back to password if it is changed!)
+          password
         })
       })
       const data = await response.json();
-      const stringyData = JSON.stringify(data); // to be refactored when more functionality is added
+      console.log(data)
       if (response.ok) { // to be refactored when more functionality is added
-        dispatch(setUserMessage(`You have successfully updated your username, password, and/or email! ${stringyData}`))
-      }
+        dispatch(setUserMessage(`You have successfully updated your username, password, and/or email!`))
+        dispatch(setUser(data.user));
+        setIsEditing(false);
+      } else (dispatch(setUserMessage(data.message || "Error occurred during attempt to edit information.")))
     } catch {
       console.error("ERROR OCCURRED DURING PUT REQUEST TO UPDATE USER:", error)
-    } finally {
-    setIsEditing(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Profile Page</Text>
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Username:</Text>
-        {isEditing ? (
-          <TextInput
-            style={styles.input}
-            value={username}
-            onChangeText={(value) => handleInputChange('username', value)}
-          />
-        ) : (
-          <Text>{username}</Text>
-        )}
-      </View>
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Password:</Text>
-        {isEditing ? (
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={(value) => handleInputChange('password', value)}
-          />
-        ) : (
-          <Text>{password}</Text>
-        )}
-      </View>
+      <Text style={styles.header}>Profile Page</Text>
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Email:</Text>
@@ -115,12 +98,55 @@ const ProfilePage = () => {
             style={styles.input}
             value={email}
             onChangeText={(value) => handleInputChange('email', value)}
+            autoCapitalize="none"
           />
         ) : (
           <Text>{email}</Text>
         )}
       </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Username:</Text>
+        {isEditing ? (
+          <TextInput
+            style={styles.input}
+            value={username}
+            onChangeText={(value) => handleInputChange('username', value)}
+            autoCapitalize="none"
+          />
+        ) : (
+          <Text>{username}</Text>
+        )}
+      </View>
+      
+      {isEditing && (
+        <>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>New Password:</Text>
+            <TextInput
+              style={styles.input}
+              value={newPassword}
+              onChangeText={(value) => handleInputChange('newPassword', value)}
+              autoCapitalize="none"
+              placeholder="Enter New Password Here"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Confirm Old Password:</Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={(value) => handleInputChange('password', value)}
+              autoCapitalize="none"
+              placeholder="Confirm Old Password"
+            />
+          </View>
+        </>
+      )}
+
       <Text>{userMessage}</Text>
+
       <View style={styles.buttonGroup}>
         {isEditing ? (
           <>
@@ -128,7 +154,9 @@ const ProfilePage = () => {
             <Button title="Cancel" onPress={() => setIsEditing(false)} />
           </>
         ) : (
-          <Button title="Edit Profile" onPress={() => setIsEditing(true)} />
+          <>
+            <Button title="Edit Profile" onPress={() => setIsEditing(true)} />
+          </>
         )}
       </View>
     </View>
@@ -149,7 +177,7 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     marginBottom: 15,
-    marginTop: 55,
+    marginTop: 15,
   },
   label: {
     fontSize: 18,
@@ -163,7 +191,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   buttonGroup: {
-    marginTop: 175,
+    marginTop: 75,
     // alignContent: ProfilePage, // this was breaking the Profile page.
   },
 });
