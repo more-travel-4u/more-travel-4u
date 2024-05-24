@@ -44,7 +44,7 @@ export const reservationSlice = createSlice({
       state.setReservation = "";
       state.updateReservation = "";
       state.checkIn = "",
-        state.checkOut = "";
+      state.checkOut = "";
       state.intineraryNumber = "";
       state.hotelAddress = "";
       state.hotelName = "";
@@ -63,6 +63,6 @@ export const {
   hotelName,
   agreedRate,
   clearAll,
-} = reservationSlice.actions;
+} = reservationSlice.actions
 
 export default reservationSlice.reducer;
