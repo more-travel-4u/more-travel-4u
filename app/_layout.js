@@ -2,35 +2,26 @@ import 'react-native-gesture-handler'; // do not move away from line 1
 import store from '../store/index.js';
 import { Provider } from 'react-redux';
 import HomeScreen from "./Home.js";
-import Settings from "./Settings.js";
 import Trips from "./Reservations.js";
-import Plans from "./Planner.js";
+import Planner from "./Planner.js";
 import Notes from "./Memos.js";
-import Weather from "./Weather.js";
-import Maps from "./Maps.js";
+import CreateNewEvent from "./CreateNewEvent.js";
 import More from "./More.js";
-import Profile from "./Profile.js"
 import Register from "./Register.js"
-// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Login, { API_URL } from './Login.js';
-import SplashScreen from './SplashScreen.js';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { setToken } from '../store/authSlice.js';
-import { MD3LightTheme, PaperProvider, adaptNavigationTheme } from 'react-native-paper';
+import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-// import {
-//   DarkTheme as NavigationDarkTheme,
-//   DefaultTheme as NavigationDefaultTheme,
-// } from '@react-navigation/native';
-
+import { createStackNavigator } from '@react-navigation/stack'
 
 const Tab = createMaterialBottomTabNavigator();
-
 const Stack = createNativeStackNavigator();
+const RegStack = createStackNavigator();
 
 function RootLayout() {
 
@@ -77,6 +68,15 @@ function RootLayout() {
   );
 }
 
+const EventStackNavigator = () => {
+  return (
+    <RegStack.Navigator>
+      <RegStack.Screen name="Planner" component={Planner} />
+      <RegStack.Screen name="CreateNewEvent" component={CreateNewEvent} />
+    </RegStack.Navigator>
+  )
+}
+
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -97,9 +97,9 @@ const MainTabNavigator = () => {
     />
     <Tab.Screen 
       name="Planner" 
-      component={Plans}
+      component={EventStackNavigator}
       options={{
-        tabBarLabel: 'Planner',
+        tabBarLabel: 'Events',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="notebook" color={color} size={26} />
         ),
@@ -126,16 +126,6 @@ const MainTabNavigator = () => {
         ),
       }}
     />
-    {/* <Tab.Screen 
-      name="Profile" 
-      component={Profile}
-      options={{
-        tabBarLabel: 'Profile',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="message-processing-outline" color={color} size={26} />
-        ),
-      }}
-    /> */}
     <Tab.Screen 
       name="More" 
       component={More}
@@ -146,36 +136,6 @@ const MainTabNavigator = () => {
         ),
       }}
     />
-    {/* <Tab.Screen 
-      name="Settings" 
-      component={Settings}
-      options={{
-        tabBarLabel: 'Settings',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="cog" color={color} size={26} />
-        ),
-      }} 
-    /> */}
-    {/* <Tab.Screen 
-      name="Maps" 
-      component={Maps}
-      options={{
-        tabBarLabel: 'Maps',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="cog" color={color} size={26} />
-        ),
-      }} 
-    />           */}
-    {/* <Tab.Screen 
-      name="Weather" 
-      component={Weather}
-      options={{
-        tabBarLabel: 'Weather',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="cog" color={color} size={26} />
-        ),
-      }} 
-    /> */}
   </Tab.Navigator>
   )
 }
