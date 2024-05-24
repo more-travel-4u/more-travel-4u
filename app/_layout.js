@@ -1,16 +1,17 @@
+import 'react-native-gesture-handler'; // do not move away from line 1
 import store from '../store/index.js';
 import { Provider } from 'react-redux';
 import HomeScreen from "./Home.js";
-import SettingsScreen from "./Settings.js";
+import Settings from "./Settings.js";
 import Trips from "./Reservations.js";
 import Plans from "./Planner.js";
 import Notes from "./Memos.js";
 import Weather from "./Weather.js";
 import Maps from "./Maps.js";
-import Options from "./More.js";
+import More from "./More.js";
 import Profile from "./Profile.js"
 import Register from "./Register.js"
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
@@ -18,8 +19,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Login, { API_URL } from './Login.js';
 import SplashScreen from './SplashScreen.js';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text } from 'react-native';
 import { setToken } from '../store/authSlice.js';
+import { MD3LightTheme, PaperProvider, adaptNavigationTheme } from 'react-native-paper';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+// import {
+//   DarkTheme as NavigationDarkTheme,
+//   DefaultTheme as NavigationDefaultTheme,
+// } from '@react-navigation/native';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -79,16 +86,6 @@ const MainTabNavigator = () => {
       barStyle={{ backgroundColor: '#5aa9e6' }}
     >
     <Tab.Screen 
-      name="Home" 
-      component={HomeScreen}
-      options={{
-        tabBarLabel: 'Home',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="home" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen 
       name="Reservations" 
       component={Trips}
       options={{
@@ -109,6 +106,17 @@ const MainTabNavigator = () => {
       }}
     />
     <Tab.Screen 
+      name="Home" 
+      component={HomeScreen}
+      mode="contained"
+      options={{
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="home" color={color} size={26} />
+        ),
+      }}
+    />
+    <Tab.Screen 
       name="Memos" 
       component={Notes}
       options={{
@@ -118,7 +126,7 @@ const MainTabNavigator = () => {
         ),
       }}
     />
-    <Tab.Screen 
+    {/* <Tab.Screen 
       name="Profile" 
       component={Profile}
       options={{
@@ -127,10 +135,10 @@ const MainTabNavigator = () => {
           <MaterialCommunityIcons name="message-processing-outline" color={color} size={26} />
         ),
       }}
-    />
+    /> */}
     <Tab.Screen 
       name="More" 
-      component={Options}
+      component={More}
       options={{
         tabBarLabel: 'More',
         tabBarIcon: ({ color }) => (
@@ -138,17 +146,17 @@ const MainTabNavigator = () => {
         ),
       }}
     />
-    <Tab.Screen 
+    {/* <Tab.Screen 
       name="Settings" 
-      component={SettingsScreen}
+      component={Settings}
       options={{
         tabBarLabel: 'Settings',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="cog" color={color} size={26} />
         ),
       }} 
-    />
-    <Tab.Screen 
+    /> */}
+    {/* <Tab.Screen 
       name="Maps" 
       component={Maps}
       options={{
@@ -157,8 +165,8 @@ const MainTabNavigator = () => {
           <MaterialCommunityIcons name="cog" color={color} size={26} />
         ),
       }} 
-    />          
-    <Tab.Screen 
+    />           */}
+    {/* <Tab.Screen 
       name="Weather" 
       component={Weather}
       options={{
@@ -167,15 +175,26 @@ const MainTabNavigator = () => {
           <MaterialCommunityIcons name="cog" color={color} size={26} />
         ),
       }} 
-    />
+    /> */}
   </Tab.Navigator>
   )
+}
+
+const theme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: "silver",
+    secondary: "gold"
+  }
 }
 
 const RootLayoutWrapper = () => {
   return (
     <Provider {...{store}}>
-      <RootLayout />
+      <PaperProvider {...{theme}}>
+        <RootLayout />
+      </PaperProvider>
     </Provider>
   )
 }

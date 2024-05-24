@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth } from '../store/authSlice.js';
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import * as SecureStore from 'expo-secure-store';
 
 // IMPORTANT NOTE: The api_url currently is specific to alex only. He is using localtunnel to create an API_URL web url
@@ -15,6 +16,7 @@ const Login = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const { username, password, token, authMessage } = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => { 
     dispatch(clearAuth()) 
@@ -25,6 +27,7 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const response = await fetch(API_URL + "/auth/login", {
         method: "POST",
@@ -45,6 +48,8 @@ const Login = ({ navigation }) => {
     } catch (error) {
       console.log(error);
       dispatch(setAuthMessage("Network error. Please try again later."))
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,6 +58,7 @@ const Login = ({ navigation }) => {
       <View style={styles.container}>
         <Text>More Travel 4 U</Text>
         {authMessage && <Text>{authMessage}</Text>}
+        {isLoading && <ActivityIndicator animating={true} color={MD2Colors.red800}/>}
         <TextInput
           style={styles.input}
           placeholder="Enter Username"

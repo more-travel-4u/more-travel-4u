@@ -1,51 +1,43 @@
-import React from 'react';
-import store from '../store/index.js';
-import { Provider } from 'react-redux';
 import Weather from "./Weather.js";
+import Profile from "./Profile.js";
+import Settings from './Settings.js';
 import Maps from "./Maps.js";
-import Register from "./Register.js"
-import { Text, View, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+// import { StyleSheet } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export default function Options() {
-  const navigation = useNavigation();
 
+const MoreTabNavigator = () => {
+  const Drawer = createDrawerNavigator();
   return (
-    <Provider store={store}>
-    <View style={styles.container}>
-      <Text style={styles.title}>More!</Text>
-      <Button
-        title="Go to Maps"
-        onPress={() => navigation.navigate('Maps')}
-        style={styles.button}
-      />
-      <Button
-        title="Go to Weather"
-        onPress={() => navigation.navigate('Weather')}
-        style={styles.button}
-      />
-      <Button
-        title="Go to Register"
-        onPress={() => navigation.navigate('Register')}
-        style={styles.button}
-      />
-    </View>
-    </Provider>
+    <Drawer.Navigator defaultStatus="open">
+      <Drawer.Screen name="Weather" component={Weather} />
+      <Drawer.Screen name="Location" component={Maps} />
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Settings" component={Settings} />
+    </Drawer.Navigator>
+  )
+}
+
+export default function More() {
+  return (
+    <>
+      <MoreTabNavigator />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  button: {
-    marginVertical: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     padding: 16,
+//   },
+//   title: {
+//     fontSize: 24,
+//     marginBottom: 20,
+//   },
+//   button: {
+//     marginVertical: 10,
+//   },
+// });

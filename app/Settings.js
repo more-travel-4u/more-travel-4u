@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { clearAll } from './../store/userSlice.js';
 
-export default function SettingsScreen() {
+export default function Settings({ navigation }) {
 
   const dispatch = useDispatch();
 
@@ -16,6 +16,7 @@ export default function SettingsScreen() {
         await SecureStore.setItemAsync("token", "");
         dispatch(setToken(""));
         dispatch(clearAll());
+        await navigation.navigate("Home");
       }}/>
     </View>
   );
