@@ -1,34 +1,33 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUsername, setPassword, setToken, setAuthMessage, clearPassword, clearAuth } from '../store/authSlice.js';
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import * as SecureStore from 'expo-secure-store';
-import Register from "./Register.js";
 
 // IMPORTANT NOTE: The api_url currently is specific to alex only. He is using localtunnel to create an API_URL web url
 // so that Expo Go can communicate with his locally hosted server for testing purposes. During production, API_URL should be
 // set to our Render deploy:
 // More info on localtunnel: https://www.npmjs.com/package/localtunnel
-// export const API_URL = https://more-travel-4u.onrender.com
-export const API_URL = "https://slimy-moments-smile.loca.lt" // for alex
+export const API_URL = "https://more-travel-4u.onrender.com"
+// export const API_URL = "https://eager-crabs-roll.loca.lt" // for alex
 
 const Login = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const { username, password, token, authMessage } = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch(clearAuth())
-  }, [],)
-
-  useEffect(() => {
-    if (token)
-      // TODO: change logged in, here is your token line upon addition of more functionality.
-      dispatch(setAuthMessage("Login successful! Here is your token: " + token))
-  }, [token],)
+    return (() => {
+      dispatch(setAuthMessage(""))
+    })
+  }, [])
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const response = await fetch(API_URL + "/auth/login", {
         method: "POST",
@@ -49,6 +48,8 @@ const Login = ({ navigation }) => {
     } catch (error) {
       console.log(error);
       dispatch(setAuthMessage("Network error. Please try again later."))
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,6 +58,7 @@ const Login = ({ navigation }) => {
       <View style={styles.container}>
         <Text>More Travel 4 U</Text>
         {authMessage && <Text>{authMessage}</Text>}
+        {isLoading && <ActivityIndicator animating={true} color={MD2Colors.red800} />}
         <TextInput
           style={styles.input}
           placeholder="Enter Username"
@@ -77,8 +79,6 @@ const Login = ({ navigation }) => {
 
 
         <Button title="Login" onPress={handleLogin} />
-
-        {/* TODO: add button functionality to navigate to Registration */}
 
         <Text>Don't have an account?</Text>
         <Button title="Register Here" onPress={() => navigation.navigate("Register")} />

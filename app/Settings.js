@@ -2,8 +2,9 @@ import { Text, View, Button } from 'react-native';
 import { setToken } from './../store/authSlice.js';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
+import { clearAll } from './../store/userSlice.js';
 
-export default function SettingsScreen() {
+export default function Settings({ navigation }) {
 
   const dispatch = useDispatch();
 
@@ -14,6 +15,8 @@ export default function SettingsScreen() {
       <Button title="Logout" onPress={async () => {
         await SecureStore.setItemAsync("token", "");
         dispatch(setToken(""));
+        dispatch(clearAll());
+        await navigation.navigate("Home");
       }}/>
     </View>
   );
