@@ -1,9 +1,43 @@
 import { Text, View, Button, StyleSheet, TextInput, } from 'react-native';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveTrip } from './../store/tripSlice.js';
+import { API_URL } from './Login.js';
 
 export default function HomeScreen() {
+
+  const dispatch = useDispatch();
+  const activeTrip = useSelector(state => state.trip.activeTrip);
+  const token = useSelector(state => state.auth.token);
+
+  useEffect(() => {
+    // to grab active trip upon logging in
+    (async function getActiveTrip() {
+      console.log("im here")
+      if (!activeTrip) {
+        try {
+          const response = await fetch(API_URL + "/api/trip", {
+            method: "GET",
+            headers: {
+              'Accept': 'application/json',
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            }
+          })
+          const json = await response.json();
+          if (response.ok) {
+            dispatch(setActiveTrip(json.trip));
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    })();
+  }, [token],);
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={styles.header}>Home Page</Text>
+      {/* {activeTrip && <Text style={styles.header}>{JSON.stringify(activeTrip)}</Text>} */}
       <WeatherInput />
       <PlannerPreview />
       <ReservationsPreview />

@@ -19,6 +19,7 @@ import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { createStackNavigator } from '@react-navigation/stack'
 
+
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const RegStack = createStackNavigator();
@@ -69,9 +70,22 @@ function RootLayout() {
 }
 
 const EventStackNavigator = () => {
+
+  const selectedPlannerDate = useSelector(state => state.event.selectedPlannerDate);
+
+  // Function for formatting our date.
+  const formatDate = (inputDate) => {
+    const date = inputDate.slice(0, 10)
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const strArray = date.split('');
+    let monthNum = strArray[5] + strArray[6];
+    if (monthNum[0] === '0') monthNum = monthNum.substring(1);
+    return `${months[Number(monthNum)-1]} ${strArray[8]}${strArray[9]}, ${strArray[0]}${strArray[1]}${strArray[2]}${strArray[3]}`
+  }
+
   return (
     <RegStack.Navigator>
-      <RegStack.Screen name="Planner" component={Planner} />
+      <RegStack.Screen name="Planner" component={Planner} options= {{ title: `Planner: ${formatDate(selectedPlannerDate)}`}}/>
       <RegStack.Screen name="CreateNewEvent" component={CreateNewEvent} />
     </RegStack.Navigator>
   )

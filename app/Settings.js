@@ -3,6 +3,7 @@ import { setToken } from './../store/authSlice.js';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { clearAll } from './../store/userSlice.js';
+import { clearActiveTrip } from './../store/tripSlice.js';
 
 export default function Settings({ navigation }) {
 
@@ -16,6 +17,7 @@ export default function Settings({ navigation }) {
         await SecureStore.setItemAsync("token", "");
         dispatch(setToken(""));
         dispatch(clearAll());
+        dispatch(clearActiveTrip());
         await navigation.navigate("Home");
       }}/>
     </View>
