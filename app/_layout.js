@@ -96,7 +96,7 @@ const MainTabNavigator = () => {
       }}
     />
     <Tab.Screen 
-      name="Planner" 
+      name="_sitemap" 
       component={EventStackNavigator}
       options={{
         tabBarLabel: 'Events',
