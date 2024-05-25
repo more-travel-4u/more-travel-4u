@@ -15,9 +15,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import Login, { API_URL } from './Login.js';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { setToken } from '../store/authSlice.js';
-import { MD3LightTheme, PaperProvider } from 'react-native-paper';
+import { MD3LightTheme, PaperProvider, Text } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { createStackNavigator } from '@react-navigation/stack'
+import { Button } from 'react-native'; // TODO: change to react-native-paper
+import { set_showFAB as setShow } from './../store/eventSlice.js';
+import { formatDate } from './../utils.js';
+
+  // // Function for formatting our date.
+  // export const formatDate = (inputDate) => {
+  //   const date = inputDate.slice(0, 10)
+  //   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  //   const strArray = date.split('');
+  //   let monthNum = strArray[5] + strArray[6];
+  //   if (monthNum[0] === '0') monthNum = monthNum.substring(1);
+  //   return `${months[Number(monthNum)-1]} ${strArray[8]}${strArray[9]}, ${strArray[0]}${strArray[1]}${strArray[2]}${strArray[3]}`
+  // }
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -72,20 +85,26 @@ function RootLayout() {
 const EventStackNavigator = () => {
 
   const selectedPlannerDate = useSelector(state => state.event.selectedPlannerDate);
-
-  // Function for formatting our date.
-  const formatDate = (inputDate) => {
-    const date = inputDate.slice(0, 10)
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const strArray = date.split('');
-    let monthNum = strArray[5] + strArray[6];
-    if (monthNum[0] === '0') monthNum = monthNum.substring(1);
-    return `${months[Number(monthNum)-1]} ${strArray[8]}${strArray[9]}, ${strArray[0]}${strArray[1]}${strArray[2]}${strArray[3]}`
-  }
+  const dispatch = useDispatch();
 
   return (
-    <RegStack.Navigator>
-      <RegStack.Screen name="Planner" component={Planner} options= {{ title: `Planner: ${formatDate(selectedPlannerDate)}`}}/>
+    <RegStack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'lightblue' } }}>
+      <RegStack.Screen 
+        name="Planner" 
+        component={Planner} 
+        options= {{ 
+          headerTitle: () => <Text style={{"fontSize": 30}}>{`Planner: ${formatDate(selectedPlannerDate)}`}</Text>,
+          // headerRight: () => {
+          //   <Button 
+          //     title = "Change Date"
+          //     color = "#00cc00"
+          //     onPress={() => {
+          //       dispatch(setShow(true));
+          //     }}
+          //   />
+          // }
+        }}
+      />
       <RegStack.Screen name="CreateNewEvent" component={CreateNewEvent} />
     </RegStack.Navigator>
   )
@@ -156,17 +175,18 @@ const MainTabNavigator = () => {
 
 const theme = {
   ...MD3LightTheme,
-  colors: {
-    ...MD3LightTheme.colors,
-    primary: "silver",
-    secondary: "gold"
-  }
+  // colors: {
+  //   ...MD3LightTheme.colors,
+    // primary: "silver",
+    // secondary: "gold"
+  // }
 }
 
 const RootLayoutWrapper = () => {
   return (
     <Provider {...{store}}>
       <PaperProvider {...{theme}}>
+      {/* <PaperProvider> */}
         <RootLayout />
       </PaperProvider>
     </Provider>

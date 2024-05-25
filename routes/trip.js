@@ -12,6 +12,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const id = await findActiveTrip(req.user.id);
+    console.log("am i here?")
     const trip = await getTrip(id);
     res.status(200).send({ trip })
   } catch (error) {
