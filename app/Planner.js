@@ -166,10 +166,9 @@ const DatePicker = ({activeTrip}) => {
   const mode = useSelector(state => state.event._modeFAB)
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
     dispatch(setSelectedPlannerDate(selectedDate.toISOString()))
     dispatch(setShow(false));
-    setDate(currentDate);
+    setDate(selectedDate);
   };
 
   return (
