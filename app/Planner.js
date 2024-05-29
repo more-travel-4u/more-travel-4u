@@ -71,7 +71,9 @@ const _renderHour = ({ item }) => {
   return (
     <Card style={[styles.item, {backgroundColor}]} mode="elevated">
       <Card.Title title={emojifi} titleStyle={styles.title}/>
-      {item.event && <Text>{item.event.name}</Text>}
+      {item.event && 
+        <Text>{item.event.name}</Text>
+      }
     </Card>
   )
 }
