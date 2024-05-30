@@ -20,27 +20,20 @@ import {
 
 const Memos = () => {
 
-  // State variables 
-  // Array to store notes 
   const [notes, setNotes] = useState([]);
 
-  // Selected note for editing 
+
   const [selectedNote, setSelectedNote] = useState(null);
 
-  // Note title 
   const [title, setTitle] = useState("");
 
-  // Note content 
   const [content, setContent] = useState("");
 
-  // Modal visibility state 
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Function to handle saving a note 
   const handleSaveNote = () => {
     if (selectedNote) {
 
-      // If a note is selected, update it 
       const updatedNotes = notes.map((note) =>
         note.id === selectedNote.id
           ? { ...note, title, content }
@@ -50,7 +43,6 @@ const Memos = () => {
       setSelectedNote(null);
     } else {
 
-      // If no note is selected, add a new note 
       const newNote = {
         id: Date.now(),
         title,
@@ -63,7 +55,6 @@ const Memos = () => {
     setModalVisible(false);
   };
 
-  // Function to handle editing a note 
   const handleEditNote = (note) => {
     setSelectedNote(note);
     setTitle(note.title);
@@ -71,7 +62,6 @@ const Memos = () => {
     setModalVisible(true);
   };
 
-  // Function to handle deleting a note 
   const handleDeleteNote = (note) => {
     const updatedNotes = notes.filter(
       (item) => item.id !== note.id
@@ -83,10 +73,8 @@ const Memos = () => {
 
   return (
     <View style={styles.container}>
-      {/* Title */}
       <Text style={styles.title}>Shared Notes</Text>
 
-      {/* List of notes */}
       <ScrollView style={styles.noteList}>
         {notes.map((note) => (
           <TouchableOpacity
@@ -100,7 +88,6 @@ const Memos = () => {
         ))}
       </ScrollView>
 
-      {/* Add Note button */}
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => {
@@ -114,14 +101,12 @@ const Memos = () => {
         </Text>
       </TouchableOpacity>
 
-      {/* Modal for creating/editing notes */}
       <Modal
         visible={modalVisible}
         animationType="slide"
         transparent={false}
       >
         <View style={styles.modalContainer}>
-          {/* Note title input */}
           <TextInput
             style={styles.input}
             placeholder="Enter note title"
@@ -129,7 +114,6 @@ const Memos = () => {
             onChangeText={setTitle}
           />
 
-          {/* Note content input */}
           <TextInput
             style={styles.contentInput}
             multiline
@@ -138,7 +122,6 @@ const Memos = () => {
             onChangeText={setContent}
           />
 
-          {/* Buttons for saving, canceling, and deleting */}
           <View style={styles.buttonContainer}>
             <Button
               title="Save"
