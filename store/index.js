@@ -3,7 +3,7 @@ import authReducer from "./authSlice.js"
 import weatherReducer from "./weatherSlice.js";
 import userReducer from "./userSlice.js";
 import { combineReducers } from 'redux';
-import reservationSlice from './reservationSlice.js';
+import reservationSlice from './hotelSlice.js';
 
 
 
