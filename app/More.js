@@ -3,7 +3,7 @@ import Profile from "./Profile.js";
 import Settings from './Settings.js';
 import Maps from "./Maps.js";
 import Notification from "./Notification.js";
-import ShareWith from "./ShareWith.js";
+import ShareWith from "./Sharing.js";
 import Chatting from "./Chatting.js";
 // import { StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -17,7 +17,7 @@ const MoreTabNavigator = () => {
       <Drawer.Screen name="Location" component={Maps} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Notification" component={Notification} />
-      <Drawer.Screen name="ShareWith" component={ShareWith} />
+      <Drawer.Screen name="Sharing" component={ShareWith} />
       {/* <Drawer.Screen name="Chatting" component={Chatting} /> */}
       <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
