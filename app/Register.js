@@ -139,29 +139,5 @@ const styles = StyleSheet.create({
     borderRadius: 4
   }
 });
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: 'center'
-  },
-  inputContainer: {
-    marginBottom: 12
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 8,
-    borderRadius: 4
-  }
-});
 
 export default Register;
