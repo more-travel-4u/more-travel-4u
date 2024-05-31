@@ -71,9 +71,17 @@ const Memos = () => {
     setModalVisible(false);
   };
 
+  // adding date to notes
+  // const date = new Date().getDate();
+  // const month = new Date().getMonth() + 1;
+  // const year = new Date().getFullYear();
+  const dateAndTime = new Date().toLocaleString();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shared Notes</Text>
+      {/* <Text style={styles.title}>{month} - {date} - {year} </Text> */}
+      <Text style={styles.title}>{dateAndTime}</Text>
 
       <ScrollView style={styles.noteList}>
         {notes.map((note) => (
