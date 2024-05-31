@@ -25,7 +25,7 @@ const Register = ({ navigation }) => {
         email: '',
         password: ''
       })
-  })
+    })
   }, [],)
 
   const handleChange = (name, value) => {
@@ -77,7 +77,7 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {authMessage && <Text>{authMessage}</Text>}
-      {isLoading && <ActivityIndicator animating={true} color={MD2Colors.blue300}/>}
+      {isLoading && <ActivityIndicator animating={true} color={MD2Colors.blue300} />}
       <Text style={styles.title}>Register</Text>
       <View style={styles.inputContainer}>
         <Text>Username:</Text>
@@ -116,6 +116,30 @@ const Register = ({ navigation }) => {
       <Button title="Login Here" onPress={() => navigation.navigate("Login")} />
     </View>
   )
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    justifyContent: 'center'
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
+    textAlign: 'center'
+  },
+  inputContainer: {
+    marginBottom: 12
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 8,
+    borderRadius: 4
+  }
+});
+  );
 };
 
 const styles = StyleSheet.create({
