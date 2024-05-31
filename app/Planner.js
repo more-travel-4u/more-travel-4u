@@ -2,11 +2,11 @@
 // import FloatingDateChange from './FloatingDateChange.js';
 import { useState, useEffect } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { SafeAreaView, View, FlatList, StyleSheet, StatusBar } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, StatusBar, Pressable, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedPlannerDate, set_showFAB as setShow } from './../store/eventSlice.js';
-import { formatDate } from './../utils.js';
-import { Text, Card, Divider, FAB } from 'react-native-paper'
+import { formatDate, formatTime } from './../utils.js';
+import { Text, Card, Divider, FAB, Modal, Portal } from 'react-native-paper'
 
 
 const emojis = [
@@ -29,12 +29,16 @@ const createHourArray = (activeTrip) => {
     const currHour = hour.getHours();
     const currDay = hour.getDay();
     const currDate = formatDate(hour.toISOString());
-
     let hasEvent = false;
     const eventOccuring = eventArray.findIndex((event) => {
-      if ((hour < new Date(event.start_time))) 
+      if ((hour < new Date(event.start_time))) {
         if (new Date(hour.getTime() + 3600000) > new Date(event.start_time))
           return true
+      } else if ((hour > new Date(event.start_time)) && (hour < new Date(event.end_time)))
+        return true
+      else if ((hour > new Date(event.end_time)))
+        if (new Date(hour.getTime() - 3600000) < new Date(event.end_time))
+          return true;
     })
     if (eventOccuring !== -1) hasEvent = true;
 
@@ -65,24 +69,67 @@ const createEventArray = (activeTrip) => {
   return eventArray;
 }
 
-const _renderHour = ({ item }) => {
-  const backgroundColor = colors[item.id % 3];
-  const emojifi = `${getEmoji()} ${item.dateString}`
-  return (
-    <Card style={[styles.item, {backgroundColor}]} mode="elevated">
-      <Card.Title title={emojifi} titleStyle={styles.title}/>
-      {item.event && 
-        <Text>{item.event.name}</Text>
-      }
-    </Card>
-  )
-}
-
 export default function Planner({ navigation }) {
 
   const activeTrip = useSelector(state => state.trip.activeTrip);
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  const _renderHour = ({ item }) => {
+    const backgroundColor = colors[item.id % 3];
+    const emojifi = `${getEmoji()} ${item.dateString}`
+    console.log("ITEM.EVENT HERE", item.event)
+  
+    return (
+      <>
+        <Card style={[styles.item, {backgroundColor}]} mode="elevated">
+          <Card.Title title={emojifi} titleStyle={styles.title}/>
+        </Card>
+        {item.event &&
+          <>
+            <Pressable style={styles.eventCard} mode="elevated" onPress={() => {setVisible(true)}}>
+              <View>
+                <Text style={styles.title}>{item.event.name}</Text>
+                <Text>{item.event.location}</Text>
+              </View>
+              <View style={{top: 30}}>
+                <Text style={{textAlign: "right"}}>Start: {formatTime(item.event.start_time)}</Text>
+                <Text style={{textAlign: "right"}}>End: {formatTime(item.event.end_time)}</Text>
+              </View>
+            </Pressable>
+            <Portal>
+              <Modal useNativeDriver={true} visible={visible} onDismiss={() => setVisible(false)} style={styles.modalContainer}>
+                <Text style={{fontSize: 25, fontWeight: 900}}>{item.event.name}</Text>
+                <Divider />
+                <Text style={{fontSize: 18}}>Description:</Text>
+                <Text>{item.event.description}</Text>
+                <Divider />
+                <Text>Date: {formatDate(item.event.date)}</Text>
+                <Text>Start Time: {formatTime(item.event.start_time)}</Text>
+                <Text>End Time: {formatTime(item.event.end_time)}</Text>
+                <Divider />
+                <Text style={{fontSize: 18}}>Location:</Text>
+                <Text>{item.event.location}</Text>
+              </Modal>
+            </Portal>
+          </>
+          // <Card style={[styles.eventCard, {flexDirection: "row"}]} mode="elevated">
+          //   <View>
+          //     <Card.Title titleStyle={styles.title} title={item.event.name}/>
+          //     <Card.Content>
+          //       <Text>{item.event.location}</Text>
+          //     </Card.Content>
+          //   </View>
+          //   <Card.Content>
+          //     <Text>Start: {formatTime(item.event.start_time)}</Text>
+          //     <Text>End: {formatTime(item.event.end_time)}</Text>
+          //   </Card.Content>
+          // </Card>
+        }
+      </>
+    )
+  }
 
   useEffect(() => {
     if (activeTrip) {
@@ -123,12 +170,9 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    marginVertical: 8,
+    marginVertical: 4,
     marginHorizontal: 16,
-    borderWidth: 2,
-    borderColor: "#000000",
-    borderStyle:"solid",
-    height: 200
+    height: 125,
   },
   title: {
     fontSize: 17,
@@ -140,25 +184,30 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0
   },
+  eventCard: {
+    marginVertical: 4,
+    marginHorizontal: 16,
+    left: 50,
+    top: 45,
+    height: 70,
+    width: 300,
+    position: "absolute",
+    justifyContent: "center",
+    border: "solid",
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: "white",
+    flexDirection: "row"
+  },
+  modalContainer: {
+    marginTop: 150,
+    marginBottom: 150,
+    marginLeft: 35,
+    marginRight: 35,
+    backgroundColor: "white",
+
+  }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const DatePicker = ({activeTrip}) => {
 

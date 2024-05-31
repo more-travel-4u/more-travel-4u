@@ -1,7 +1,7 @@
 import { Text, View, Button, StyleSheet, TextInput, } from 'react-native';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveTrip } from './../store/tripSlice.js';
+import { setActiveTrip, setActiveTripCompanions } from './../store/tripSlice.js';
 import { API_URL } from './Login.js';
 
 export default function HomeScreen() {
@@ -27,6 +27,7 @@ export default function HomeScreen() {
           const json = await response.json();
           if (response.ok) {
             dispatch(setActiveTrip(json.trip));
+            dispatch(setActiveTripCompanions());
           }
         } catch (error) {
           console.error(error);
