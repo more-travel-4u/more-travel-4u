@@ -6,6 +6,7 @@ import Trips from "./Reservations.js";
 import Planner from "./Planner.js";
 import Notes from "./Memos.js";
 import CreateNewEvent from "./CreateNewEvent.js";
+import ChooseFromMap from "./ChooseFromMap.js";
 import More from "./More.js";
 import Register from "./Register.js"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -106,6 +107,7 @@ const EventStackNavigator = () => {
         }}
       />
       <RegStack.Screen name="CreateNewEvent" component={CreateNewEvent} />
+      <RegStack.Screen name="ChooseFromMap" component={ChooseFromMap} />
     </RegStack.Navigator>
   )
 }

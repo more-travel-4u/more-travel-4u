@@ -5,7 +5,9 @@ export const eventSlice = createSlice({
   initialState: {
     selectedPlannerDate: "",
     _modeFAB: "date",
-    _showFAB: false
+    _showFAB: false,
+    newEventDate: null,
+    eventLocation: "",
   },
   reducers: {
     setSelectedPlannerDate: (state, action) => {
@@ -17,12 +19,20 @@ export const eventSlice = createSlice({
     set_showFAB: (state, action) => {
       state._showFAB = action.payload;
     },
+    setNewEventDate: (state, action) => {
+      state.newEventDate = action.payload;
+    },
+    setEventLocation: (state, action) => {
+      state.eventLocation = action.payload;
+    }
   }
 })
 
 export const {
   setSelectedPlannerDate,
   set_modeFAB,
-  set_showFAB
+  set_showFAB,
+  setNewEventDate,
+  setEventLocation,
 } = eventSlice.actions;
 export default eventSlice.reducer;
