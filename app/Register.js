@@ -115,7 +115,7 @@ const Register = ({ navigation }) => {
       <Text>Already have an account?</Text>
       <Button title="Login Here" onPress={() => navigation.navigate("Login")} />
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({

@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'; // do not move away from line 1
 import store from '../store/index.js';
 import { Provider } from 'react-redux';
 import HomeScreen from "./Home.js";
-import Trips from "./Reservations.js";
+import hotelDetails from "./Hotels.js";
 import Planner from "./Planner.js";
 import Notes from "./Memos.js";
 import CreateNewEvent from "./CreateNewEvent.js";
@@ -57,7 +57,7 @@ function RootLayout() {
               }
             })
             const json = await response.json();
-            if (json?.message === "Not Logged In"){
+            if (json?.message === "Not Logged In") {
               dispatch(setToken(""));
               await SecureStore.setItemAsync("token", "");
             }
@@ -73,7 +73,7 @@ function RootLayout() {
     <>
       {token ? (
         <MainTabNavigator />
-        ) : (
+      ) : (
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
@@ -120,58 +120,58 @@ const MainTabNavigator = () => {
       inactiveColor="#01497c"
       barStyle={{ backgroundColor: '#5aa9e6' }}
     >
-    <Tab.Screen 
-      name="Reservations" 
-      component={Trips}
-      options={{
-        tabBarLabel: 'Reservations',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="airplane" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen 
-      name="_sitemap" 
-      component={EventStackNavigator}
-      options={{
-        tabBarLabel: 'Events',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="notebook" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen 
-      name="Home" 
-      component={HomeScreen}
-      mode="contained"
-      options={{
-        tabBarLabel: 'Home',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="home" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen 
-      name="Memos" 
-      component={Notes}
-      options={{
-        tabBarLabel: 'Memos',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="message-processing-outline" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen 
-      name="More" 
-      component={More}
-      options={{
-        tabBarLabel: 'More',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
-        ),
-      }}
-    />
-  </Tab.Navigator>
+      <Tab.Screen
+        name="Hotels"
+        component={hotelDetails}
+        options={{
+          tabBarLabel: 'Hotels',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="airplane" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="_sitemap"
+        component={EventStackNavigator}
+        options={{
+          tabBarLabel: 'Events',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="notebook" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        mode="contained"
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Memos"
+        component={Notes}
+        options={{
+          tabBarLabel: 'Memos',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="message-processing-outline" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="More"
+        component={More}
+        options={{
+          tabBarLabel: 'More',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   )
 }
 
@@ -186,9 +186,8 @@ const theme = {
 
 const RootLayoutWrapper = () => {
   return (
-    <Provider {...{store}}>
-      <PaperProvider {...{theme}}>
-      {/* <PaperProvider> */}
+    <Provider {...{ store }}>
+      <PaperProvider {...{ theme }}>
         <RootLayout />
       </PaperProvider>
     </Provider>
