@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { FlatList, ActivityIndicator, View, Text, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
-import { setCurrentWeather } from './../store/weatherSlice.js';
+import { setCurrentWeather, setErrorMessage } from './../store/weatherSlice.js';
 
 // TODO for this component:
 // look into other free weather apis perhaps (Weatherstack has a low monthly limit for free subscription)
@@ -15,9 +15,10 @@ const Weather = () => {
 
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-  const currentWeather = useSelector(state => state.weather.currentWeather);
+  const { currentWeather, errorMessage } = useSelector(state => state.weather);
   const [isLoading, setIsLoading] = useState(true);
 
+  // TODO: get location from phone api, set city to that location
   const city = "New York" // hardcoded for now
 
   useEffect(() => {
@@ -27,7 +28,8 @@ const Weather = () => {
       try {
         const response = await fetch(`${WEATHERSTACK_API_URL}?access_key=${WEATHERSTACK_API_KEY}&query=${city}&units=f`)
         const data = await response.json();
-        dispatch(setCurrentWeather(data));
+        if (!data.success) dispatch(setErrorMessage("Cannot retrieve weather data."))
+        else dispatch(setCurrentWeather(data));
       } catch (error) {
         console.error("ERROR", error)
       } finally {
@@ -35,16 +37,20 @@ const Weather = () => {
       }
     }
     getWeather();
-    return (() => {setIsLoading(true)})
+    return (() => {
+      setIsLoading(true)
+      dispatch(setErrorMessage(""))
+    })
   }, [isFocused],);
 
   return (
     <>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        {errorMessage && <Text>{errorMessage}</Text>}
         {isLoading ? (
           <ActivityIndicator />
         ) : (
-          <FlatList
+          (!errorMessage && <FlatList
             data = {
               [
                 {
@@ -70,7 +76,7 @@ const Weather = () => {
               )
             }}
             keyExtractor = {item => item.id}
-          />
+          />)
         )}
       </View>
     </>
