@@ -77,7 +77,7 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {authMessage && <Text>{authMessage}</Text>}
-      {isLoading && <ActivityIndicator animating={true} color={MD2Colors.blue300}/>}
+      {isLoading && <ActivityIndicator animating={true} color={MD2Colors.blue300} />}
       <Text style={styles.title}>Register</Text>
       <View style={styles.inputContainer}>
         <Text>Username:</Text>
