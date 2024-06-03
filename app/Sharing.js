@@ -9,14 +9,6 @@ const ShareWith = (props) => {
     const response = await Share.share(options);
     return false;
   };
-  const shareMultipleLinesMessage = async () => {
-    const options = {
-      title: 'Sharing!',
-      message: 'Write \nmessage \nhere ',
-    };
-    const response = await Share.share(options);
-    return false;
-  };
   const shareURL = async () => {
     const options = {
       title: 'Sharing!',
@@ -42,13 +34,6 @@ const ShareWith = (props) => {
           shareURL();
         }}>
         <Text style={styles.buttonText}>SHARE LINK</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          shareMultipleLinesMessage();
-        }}>
-        <Text style={styles.buttonText}>SHARE MULTIPLE LINES MESSAGE</Text>
       </TouchableOpacity>
     </View>
   );
