@@ -138,8 +138,8 @@ const MyDateTimePicker = ({activeTrip}) => {
           testID="dateTimePicker"
           value={date}
           mode={mode}
-          // maximumDate = {new Date(activeTrip.end_date)}
-          // minimumDate = {new Date(activeTrip.start_date)}
+          maximumDate = {new Date(activeTrip.end_date)}
+          minimumDate = {new Date(activeTrip.start_date)}
           onChange={onChange}
         />
       )}
