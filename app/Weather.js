@@ -18,6 +18,7 @@ const Weather = () => {
   const { currentWeather, errorMessage } = useSelector(state => state.weather);
   const [isLoading, setIsLoading] = useState(true);
 
+  // TODO: get location from phone api, set city to that location
   const city = "New York" // hardcoded for now
 
   useEffect(() => {

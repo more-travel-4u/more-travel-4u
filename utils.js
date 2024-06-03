@@ -1,10 +1,13 @@
 /**
  * Function for formatting date from Date object.
- * @param {string} inputDate - format is the output of .toISOString() on a Date object.
+ * @param {string || Date object } inputDate - format is the output of .toISOString() on a Date object, or just the Date object itself.
  * @returns {string} Returns in this format: "Friday, May 31, 2024"
  */
 export const formatDate = (inputDate) => {
-  const date = inputDate.slice(0, 10)
+  let date;
+  if (typeof inputDate === "string") {
+    date = inputDate.slice(0, 10)
+  } else date = inputDate.toISOString().slice(0, 10)
   const dateObj = new Date(inputDate);
   const day = dateObj.getDay();
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -17,11 +20,14 @@ export const formatDate = (inputDate) => {
 
 /**
  * Function for formatting time from Date object.
- * @param {string} inputDate - format is the output of .toISOString() on a Date object.
+ * @param {string || Date object } inputDate - format is the output of .toISOString() on a Date object, or just the Date object itself.
  * @returns {string} Returns in this format: "1:35 PM"
  */
 export const formatTime = (inputDate) => {
-  const time = inputDate.slice(11, 16)
+  let time;
+  if (typeof inputDate === "string") {
+    time = inputDate.slice(11, 16)
+  } else time = inputDate.toISOString().slice(11, 16)
   const timeArray = time.split("");
   let pmTrue = false;
   let hour = timeArray[0] + timeArray[1]

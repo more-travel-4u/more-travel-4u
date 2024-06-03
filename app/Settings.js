@@ -19,7 +19,7 @@ export default function Settings({ navigation }) {
         dispatch(clearAll());
         dispatch(clearActiveTrip());
         await navigation.navigate("Home");
-      }}/>
+      }} />
     </View>
   );
 }

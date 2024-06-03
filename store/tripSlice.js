@@ -4,6 +4,7 @@ export const tripSlice = createSlice({
   name: "trip",
   initialState: {
     activeTrip: null,
+    activeTripCompanions: [],
   },
   reducers: {
     setActiveTrip: (state, action) => {
@@ -12,11 +13,15 @@ export const tripSlice = createSlice({
     clearActiveTrip: (state) => {
       state.activeTrip = null;
     },
+    setActiveTripCompanions: (state) => {
+      state.activeTripCompanions = state.activeTrip.users_trips.map(userObj => userObj.users)
+    }
   }
 })
 
 export const {
   setActiveTrip,
   clearActiveTrip,
+  setActiveTripCompanions,
 } = tripSlice.actions;
 export default tripSlice.reducer;
