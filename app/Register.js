@@ -25,7 +25,7 @@ const Register = ({ navigation }) => {
         email: '',
         password: ''
       })
-  })
+    })
   }, [],)
 
   const handleChange = (name, value) => {
