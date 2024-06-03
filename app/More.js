@@ -4,7 +4,6 @@ import Settings from './Settings.js';
 import Maps from "./Maps.js";
 import Notification from "./Notification.js";
 import ShareWith from "./Sharing.js";
-import Chatting from "./Chatting.js";
 // import { StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
