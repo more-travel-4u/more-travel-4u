@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, Button, ScrollView, TouchableOpacity, Modal, StyleSheet }
+  from "react-native";
 
 // export function Notes() {
 //   return (
@@ -21,14 +13,9 @@ import {
 const Memos = () => {
 
   const [notes, setNotes] = useState([]);
-
-
   const [selectedNote, setSelectedNote] = useState(null);
-
   const [title, setTitle] = useState("");
-
   const [content, setContent] = useState("");
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleSaveNote = () => {
@@ -71,16 +58,11 @@ const Memos = () => {
     setModalVisible(false);
   };
 
-  // adding date to notes
-  // const date = new Date().getDate();
-  // const month = new Date().getMonth() + 1;
-  // const year = new Date().getFullYear();
   const dateAndTime = new Date().toLocaleString();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shared Notes</Text>
-      {/* <Text style={styles.title}>{month} - {date} - {year} </Text> */}
       <Text style={styles.title}>{dateAndTime}</Text>
 
       <ScrollView style={styles.noteList}>
@@ -141,7 +123,7 @@ const Memos = () => {
               onPress={() =>
                 setModalVisible(false)
               }
-              color="#FF3B30"
+              color="#FF9500"
             />
             {selectedNote && (
               <Button
@@ -151,7 +133,7 @@ const Memos = () => {
                     selectedNote
                   )
                 }
-                color="#FF9500"
+                color="#E60101"
               />
             )}
           </View>
@@ -164,24 +146,26 @@ const Memos = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
-    backgroundColor: "#e6e6e6",
+    padding: 45,
+    backgroundColor: "#588157",
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
+    marginTop: 20,
     marginBottom: 10,
-    color: "#333",
+    color: "#fefee3",
   },
   noteList: {
     flex: 1,
   },
   noteTitle: {
-    fontSize: 15,
+    fontSize: 20,
     marginBottom: 10,
+    fontFamily: "ui-serif",
     fontWeight: "bold",
-    color: "black",
-    backgroundColor: "white",
+    color: "#fefee3",
+    backgroundColor: "#A3B18A",
     height: 40,
     width: "100%",
     padding: 10,
@@ -203,21 +187,27 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     padding: 50,
-    backgroundColor: "white",
+    backgroundColor: "#bcd4e6",
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#E0E0E0",
     padding: 10,
+    marginTop: 140,
     marginBottom: 10,
     borderRadius: 5,
+    color: "#4863A0",
+    fontSize: 19,
   },
   contentInput: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#E0E0E0",
     padding: 10,
+    marginTop: 10,
     marginBottom: 20,
     borderRadius: 5,
+    color: "#4863A0",
+    fontSize: 19,
     height: 150,
     textAlignVertical: "top",
   },

@@ -23,15 +23,15 @@ import { Button } from 'react-native'; // TODO: change to react-native-paper
 import { set_showFAB as setShow } from './../store/eventSlice.js';
 import { formatDate } from './../utils.js';
 
-  // // Function for formatting our date.
-  // export const formatDate = (inputDate) => {
-  //   const date = inputDate.slice(0, 10)
-  //   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  //   const strArray = date.split('');
-  //   let monthNum = strArray[5] + strArray[6];
-  //   if (monthNum[0] === '0') monthNum = monthNum.substring(1);
-  //   return `${months[Number(monthNum)-1]} ${strArray[8]}${strArray[9]}, ${strArray[0]}${strArray[1]}${strArray[2]}${strArray[3]}`
-  // }
+// // Function for formatting our date.
+// export const formatDate = (inputDate) => {
+//   const date = inputDate.slice(0, 10)
+//   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+//   const strArray = date.split('');
+//   let monthNum = strArray[5] + strArray[6];
+//   if (monthNum[0] === '0') monthNum = monthNum.substring(1);
+//   return `${months[Number(monthNum)-1]} ${strArray[8]}${strArray[9]}, ${strArray[0]}${strArray[1]}${strArray[2]}${strArray[3]}`
+// }
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -90,11 +90,11 @@ const EventStackNavigator = () => {
 
   return (
     <RegStack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'lightblue' } }}>
-      <RegStack.Screen 
-        name="Planner" 
-        component={Planner} 
-        options= {{ 
-          headerTitle: () => <Text style={{"fontSize": 30}}>{`Planner: ${formatDate(selectedPlannerDate)}`}</Text>,
+      <RegStack.Screen
+        name="Planner"
+        component={Planner}
+        options={{
+          headerTitle: () => <Text style={{ "fontSize": 30 }}>{`Planner: ${formatDate(selectedPlannerDate)}`}</Text>,
           // headerRight: () => {
           //   <Button 
           //     title = "Change Date"
@@ -179,8 +179,8 @@ const theme = {
   ...MD3LightTheme,
   // colors: {
   //   ...MD3LightTheme.colors,
-    // primary: "silver",
-    // secondary: "gold"
+  // primary: "silver",
+  // secondary: "gold"
   // }
 }
 
