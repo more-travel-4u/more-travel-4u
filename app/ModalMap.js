@@ -56,7 +56,7 @@ const ModalMap = () => {
 
   return (
     <>
-      <Text>I am Modal Map!</Text>
+      <Text>Event Location on Map:</Text>
       {location && 
         <MapView 
           style={styles.map}
