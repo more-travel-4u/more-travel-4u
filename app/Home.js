@@ -42,10 +42,6 @@ export default function HomeScreen() {
       <WeatherInput />
       <PlannerPreview />
       <ReservationsPreview />
-        <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
     </View>
   );
 }
