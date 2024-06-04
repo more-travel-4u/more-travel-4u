@@ -8,6 +8,11 @@ export const eventSlice = createSlice({
     _showFAB: false,
     newEventDate: null,
     eventLocation: "",
+    checkedAddress: false,
+    newEventDateEnd: null,
+    selectedUsers: [],
+    seeModal: false,
+    modalEvent: null,
   },
   reducers: {
     setSelectedPlannerDate: (state, action) => {
@@ -22,8 +27,23 @@ export const eventSlice = createSlice({
     setNewEventDate: (state, action) => {
       state.newEventDate = action.payload;
     },
+    setNewEventDateEnd: (state, action) => {
+      state.newEventDateEnd = action.payload;
+    },
     setEventLocation: (state, action) => {
       state.eventLocation = action.payload;
+    },
+    setCheckedAddress: (state, action) => {
+      state.checkedAddress = action.payload;
+    },
+    setSelectedUsers: (state, action) => {
+      state.selectedUsers = action.payload;
+    },
+    setSeeModal: (state, action) => {
+      state.seeModal = action.payload;
+    },
+    setModalEvent: (state, action) => {
+      state.modalEvent = action.payload;
     }
   }
 })
@@ -34,5 +54,10 @@ export const {
   set_showFAB,
   setNewEventDate,
   setEventLocation,
+  setCheckedAddress,
+  setNewEventDateEnd,
+  setSelectedUsers,
+  setSeeModal,
+  setModalEvent
 } = eventSlice.actions;
 export default eventSlice.reducer;

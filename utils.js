@@ -42,3 +42,9 @@ export const formatTime = (inputDate) => {
   formattedTime += pmTrue ? ` PM` : ` AM`;
   return formattedTime;
 }
+
+export const prepareQuery = (query) => {
+  return query.replace(/\s/g, "%20")
+}
+
+console.log(new Date())
