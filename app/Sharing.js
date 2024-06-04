@@ -4,7 +4,7 @@ const ShareWith = (props) => {
   const shareMessage = async () => {
     const options = {
       title: 'Sharing!',
-      message: "Hello World, we're planning our trip!",
+      message: "Ready to plan our next trip?",
     };
     const response = await Share.share(options);
     return false;
@@ -20,20 +20,20 @@ const ShareWith = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text>SHARE WITH FRIENDS</Text>
+      {/* <Text>SHARE WITH FRIENDS</Text> */}
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
           shareMessage();
         }}>
-        <Text style={styles.buttonText}>SHARE MESSAGE</Text>
+        <Text style={styles.buttonText}>Share Message</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
           shareURL();
         }}>
-        <Text style={styles.buttonText}>SHARE LINK</Text>
+        <Text style={styles.buttonText}>Share Link</Text>
       </TouchableOpacity>
     </View>
   );
@@ -44,18 +44,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#85A295',
   },
   button: {
-    backgroundColor: '#66A182',
-    width: '70%',
-    height: 40,
+    backgroundColor: '#865666',
+    width: '65%',
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 50,
     marginTop: 10,
   },
   buttonText: {
-    color: '#FFF',
+    fontSize: '18',
+    color: '#85A295',
+    fontWeight: 'bold',
   },
 });
 
