@@ -11,8 +11,8 @@ const ShareWith = (props) => {
   };
   const shareURL = async () => {
     const options = {
-      title: 'Sharing!',
-      url: 'https://www.google.com',
+      title: 'Sharing our app!',
+      url: 'https://more-travel-4u.onrender.com',
     };
     const response = await Share.share(options);
     return false;
