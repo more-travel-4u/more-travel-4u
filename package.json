@@ -39,6 +39,7 @@
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "expo": "~51.0.5",
+    "expo-checkbox": "~3.0.0",
     "expo-constants": "~16.0.1",
     "expo-font": "~12.0.5",
     "expo-linking": "~6.3.1",
@@ -55,6 +56,7 @@
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.0",
     "path": "^0.12.7",
+    "radio-buttons-react-native": "^1.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.1",
@@ -68,8 +70,7 @@
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.10",
     "react-redux": "^9.1.2",
-    "redux": "^5.0.1",
-    "expo-checkbox": "~3.0.0"
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

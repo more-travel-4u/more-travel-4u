@@ -15,7 +15,6 @@ export default function HomeScreen() {
     dispatch(setSeeModal(false));
     // to grab active trip upon logging in
     (async function getActiveTrip() {
-      console.log("im here")
       if (!activeTrip) {
         try {
           const response = await fetch(API_URL + "/api/trip", {
