@@ -46,3 +46,5 @@ export const formatTime = (inputDate) => {
 export const prepareQuery = (query) => {
   return query.replace(/\s/g, "%20")
 }
+
+console.log(new Date())

@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView, View, FlatList, StyleSheet, StatusBar, Pressable, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedPlannerDate, set_showFAB as setShow } from './../store/eventSlice.js';
+import { setSelectedPlannerDate, set_showFAB as setShow, setSeeModal, setModalEvent } from './../store/eventSlice.js';
 import { formatDate, formatTime } from './../utils.js';
 import { Text, Card, Divider, FAB, Modal, Portal } from 'react-native-paper'
+import MyModal from './Modal.js';
+
 
 
 const emojis = [
@@ -58,7 +60,6 @@ const createHourArray = (activeTrip) => {
       id,
       event: (hasEvent && eventArray[eventOccuring])
     }
-    console.log(dataObj)
     return dataObj
   })
   return dataArray;
@@ -74,12 +75,11 @@ export default function Planner({ navigation }) {
   const activeTrip = useSelector(state => state.trip.activeTrip);
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(null);
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   const _renderHour = ({ item }) => {
     const backgroundColor = colors[item.id % 3];
     const emojifi = `${getEmoji()} ${item.dateString}`
-    console.log("ITEM.EVENT HERE", item.event)
   
     return (
       <>
@@ -88,7 +88,10 @@ export default function Planner({ navigation }) {
         </Card>
         {item.event &&
           <>
-            <Pressable style={styles.eventCard} mode="elevated" onPress={() => {setVisible(true)}}>
+            <Pressable style={styles.eventCard} mode="elevated" onPress={() => {
+              dispatch(setSeeModal(true))
+              dispatch(setModalEvent(item.event))
+            }}>
               <View>
                 <Text style={styles.title}>{item.event.name}</Text>
                 <Text>{item.event.location}</Text>
@@ -98,34 +101,7 @@ export default function Planner({ navigation }) {
                 <Text style={{textAlign: "right"}}>End: {formatTime(item.event.end_time)}</Text>
               </View>
             </Pressable>
-            <Portal>
-              <Modal useNativeDriver={true} visible={visible} onDismiss={() => setVisible(false)} style={styles.modalContainer}>
-                <Text style={{fontSize: 25, fontWeight: 900}}>{item.event.name}</Text>
-                <Divider />
-                <Text style={{fontSize: 18}}>Description:</Text>
-                <Text>{item.event.description}</Text>
-                <Divider />
-                <Text>Date: {formatDate(item.event.date)}</Text>
-                <Text>Start Time: {formatTime(item.event.start_time)}</Text>
-                <Text>End Time: {formatTime(item.event.end_time)}</Text>
-                <Divider />
-                <Text style={{fontSize: 18}}>Location:</Text>
-                <Text>{item.event.location}</Text>
-              </Modal>
-            </Portal>
           </>
-          // <Card style={[styles.eventCard, {flexDirection: "row"}]} mode="elevated">
-          //   <View>
-          //     <Card.Title titleStyle={styles.title} title={item.event.name}/>
-          //     <Card.Content>
-          //       <Text>{item.event.location}</Text>
-          //     </Card.Content>
-          //   </View>
-          //   <Card.Content>
-          //     <Text>Start: {formatTime(item.event.start_time)}</Text>
-          //     <Text>End: {formatTime(item.event.end_time)}</Text>
-          //   </Card.Content>
-          // </Card>
         }
       </>
     )
@@ -147,6 +123,7 @@ export default function Planner({ navigation }) {
           keyExtractor = {hour => hour.id}
           extraData = { selectedId }
         />
+        <MyModal />
       </View>
       <FAB 
         icon="map-plus"

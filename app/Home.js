@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTrip, setActiveTripCompanions } from './../store/tripSlice.js';
 import { API_URL } from './Login.js';
+import { setSeeModal } from "./../store/eventSlice.js";
 
 export default function HomeScreen() {
 
@@ -11,6 +12,7 @@ export default function HomeScreen() {
   const token = useSelector(state => state.auth.token);
 
   useEffect(() => {
+    dispatch(setSeeModal(false));
     // to grab active trip upon logging in
     (async function getActiveTrip() {
       console.log("im here")
