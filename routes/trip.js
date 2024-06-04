@@ -25,6 +25,7 @@ router.get("/", async (req, res) => {
  */
 router.get("/all", async (req, res) => {
   try {
+    console.log("GETTING ALL TRIPS IS HAPPENING!")
     const trips = await prisma.users_Trips.findMany({
       where: {
         usersId: req.user.id
@@ -35,6 +36,7 @@ router.get("/all", async (req, res) => {
     })
     res.status(200).send({ trips });
   } catch (error) {
+    console.log("GETTING ALL TRIPS IS HAPPENING! BUT ERROR")
     res.status(400).send({ message: "Error getting all trips; please try again later." });
   }
 })
@@ -74,6 +76,20 @@ router.post("/", async (req, res) => {
     res.status(201).send({ trip })
   } catch (error) {
     res.status(400).send({ message: "Error creating new trip; please try again later." })
+  }
+})
+
+/**
+ * For a user changing their active trip.
+ * @params expected req.params: { tripId } (of the new active trip of the user)
+ * PUT /api/trip/active/:tripId
+ */
+router.put("/active/:tripId", async (req, res) => {
+  try {
+    await setTripStatus(req.user.id, req.params.tripId * 1, true)
+    res.status(200).send({ message: "Active Trip changed."})
+  } catch (error) {
+    res.status(400).send({ message: "Error switching active trip; please try again later." })
   }
 })
 
@@ -168,9 +184,10 @@ const setTripStatus = async (userId, tripId, status) => {
   try {
     const activeTripId = await findActiveTrip(userId);
     if (status && activeTripId) {
-      await prisma.users_Trips.update({
+      await prisma.users_Trips.updateMany({
         where: {
-          tripsId: activeTripId
+          tripsId: activeTripId,
+          usersId: userId
         },
         data: {
           is_active: !status
@@ -179,7 +196,8 @@ const setTripStatus = async (userId, tripId, status) => {
     }
     await prisma.users_Trips.updateMany({
       where: {
-        tripsId: tripId
+        tripsId: tripId,
+        usersId: userId
       },
       data: {
         is_active: status
