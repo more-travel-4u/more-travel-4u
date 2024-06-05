@@ -9,8 +9,8 @@ import * as SecureStore from 'expo-secure-store';
 // so that Expo Go can communicate with his locally hosted server for testing purposes. During production, API_URL should be
 // set to our Render deploy:
 // More info on localtunnel: https://www.npmjs.com/package/localtunnel
-// export const API_URL = "https://more-travel-4u.onrender.com"
-export const API_URL = "https://witty-colts-kiss.loca.lt" // for alex
+export const API_URL = "https://more-travel-4u.onrender.com"
+//export const API_URL = "https://witty-colts-kiss.loca.lt" // for alex
 
 const Login = ({ navigation }) => {
 
@@ -92,10 +92,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#6667AB",
   },
   input: {
+    color: "white",
     width: "80%",
-    height: 40,
+    height: 50,
+    fontSize: 17,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,

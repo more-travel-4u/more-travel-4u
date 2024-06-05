@@ -38,15 +38,11 @@ export default function HomeScreen() {
   }, [token],);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#85A295', }}>
       {/* {activeTrip && <Text style={styles.header}>{JSON.stringify(activeTrip)}</Text>} */}
       <WeatherInput />
       <PlannerPreview />
       <ReservationsPreview />
-        <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
     </View>
   );
 }
@@ -75,8 +71,6 @@ const ReservationsPreview = () => (
   </View>
 );
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -91,13 +85,14 @@ const styles = StyleSheet.create({
   },
   preview: {
     marginBottom: 20,
-    padding: 20,
+    padding: 33,
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    backgroundColor: '#f9f9f9',
+    borderColor: '#865666',
+    borderRadius: 10,
+    backgroundColor: '#C3ADB3',
   },
   previewTitle: {
+    color: '#865666',
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
@@ -108,5 +103,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     fontSize: 18,
+    color: '#e5c3c3',
   },
 });

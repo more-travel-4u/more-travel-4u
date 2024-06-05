@@ -25,12 +25,12 @@ const MoreTabNavigator = () => {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator defaultStatus="open">
-      <Drawer.Screen name="Weather" component={Weather} />
-      <Drawer.Screen name="Location" component={Maps} />
-      <Drawer.Screen name="Profile" component={Profile} />
-      <Drawer.Screen name="Notification" component={Notification} />
-      <Drawer.Screen name="Sharing" component={ShareWith} />
-      <Drawer.Screen name="Settings" component={SettingsStackNavigator} />
+      <Drawer.Screen name="Weather 🌤️" component={Weather} />
+      <Drawer.Screen name="Location 📍" component={Maps} />
+      <Drawer.Screen name="Profile 👤" component={Profile} />
+      <Drawer.Screen name="Notification 🔔" component={Notification} />
+      <Drawer.Screen name="Sharing 💬" component={ShareWith} />
+      <Drawer.Screen name="Settings ⚙️" component={SettingsStackNavigator} />
     </Drawer.Navigator>
   )
 }
@@ -42,19 +42,3 @@ export default function More() {
     </>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     padding: 16,
-//   },
-//   title: {
-//     fontSize: 24,
-//     marginBottom: 20,
-//   },
-//   button: {
-//     marginVertical: 10,
-//   },
-// });

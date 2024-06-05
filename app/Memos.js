@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, Button, ScrollView, TouchableOpacity, Modal, StyleSheet }
+  from "react-native";
 
 // export function Notes() {
 //   return (
@@ -21,14 +13,9 @@ import {
 const Memos = () => {
 
   const [notes, setNotes] = useState([]);
-
-
   const [selectedNote, setSelectedNote] = useState(null);
-
   const [title, setTitle] = useState("");
-
   const [content, setContent] = useState("");
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleSaveNote = () => {
@@ -71,16 +58,11 @@ const Memos = () => {
     setModalVisible(false);
   };
 
-  // adding date to notes
-  // const date = new Date().getDate();
-  // const month = new Date().getMonth() + 1;
-  // const year = new Date().getFullYear();
   const dateAndTime = new Date().toLocaleString();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shared Notes</Text>
-      {/* <Text style={styles.title}>{month} - {date} - {year} </Text> */}
       <Text style={styles.title}>{dateAndTime}</Text>
 
       <ScrollView style={styles.noteList}>
@@ -99,8 +81,8 @@ const Memos = () => {
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => {
-          setTitle("Title");
-          setContent("Notes here");
+          setTitle("");
+          setContent("");
           setModalVisible(true);
         }}
       >
@@ -118,6 +100,7 @@ const Memos = () => {
           <TextInput
             style={styles.input}
             placeholder="Enter note title"
+            placeholderTextColor="#884c5e"
             value={title}
             onChangeText={setTitle}
           />
@@ -126,6 +109,7 @@ const Memos = () => {
             style={styles.contentInput}
             multiline
             placeholder="Enter note content"
+            placeholderTextColor="#884c5e"
             value={content}
             onChangeText={setContent}
           />
@@ -134,14 +118,14 @@ const Memos = () => {
             <Button
               title="Save"
               onPress={handleSaveNote}
-              color="#007BFF"
+              color="#4c8775"
             />
             <Button
               title="Cancel"
               onPress={() =>
                 setModalVisible(false)
               }
-              color="#FF3B30"
+              color="#6667AB"
             />
             {selectedNote && (
               <Button
@@ -151,7 +135,7 @@ const Memos = () => {
                     selectedNote
                   )
                 }
-                color="#FF9500"
+                color="#E60101"
               />
             )}
           </View>
@@ -164,61 +148,78 @@ const Memos = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
-    backgroundColor: "#e6e6e6",
+    padding: 45,
+    backgroundColor: "#884c5e",
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
+    fontFamily: "sans-serif",
+    marginTop: 20,
     marginBottom: 10,
-    color: "#333",
+    color: "#e5c3c3",
+    textAlign: "center",
   },
   noteList: {
     flex: 1,
   },
   noteTitle: {
-    fontSize: 15,
+    fontSize: 20,
+    marginTop: 10,
     marginBottom: 10,
-    fontWeight: "bold",
-    color: "black",
-    backgroundColor: "white",
+    fontFamily: "georgia",
+    color: "#884c5e",
+    // fontWeight: "bold",
+    backgroundColor: "#C3ADB3",
+    textAlign: "center",
     height: 40,
     width: "100%",
     padding: 10,
     borderRadius: 8,
+    borderColor: "#FFF8E7",
+    borderWidth: 1,
   },
   addButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#007BFF",
+    backgroundColor: "#C3ADB3",
     paddingVertical: 12,
     borderRadius: 5,
     marginTop: 10,
   },
   addButtonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 18,
+    fontFamily: "georgia",
     fontWeight: "bold",
   },
   modalContainer: {
     flex: 1,
     padding: 50,
-    backgroundColor: "white",
+    backgroundColor: "#C3ADB3",
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
+    borderWidth: 2,
+    borderColor: "#884c5e",
     padding: 10,
+    marginTop: 90,
     marginBottom: 10,
     borderRadius: 5,
+    color: "#884c5e",
+    fontSize: 18,
+    fontFamily: "georgia",
   },
   contentInput: {
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
+    borderWidth: 2,
+    borderColor: "#884c5e",
     padding: 10,
+    marginTop: 20,
     marginBottom: 20,
     borderRadius: 5,
-    height: 150,
+    color: "#884c5e",
+    fontSize: 18,
+    fontFamily: "georgia",
+    height: 220,
     textAlignVertical: "top",
   },
   buttonContainer: {
