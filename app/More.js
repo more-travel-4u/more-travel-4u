@@ -30,7 +30,7 @@ const MoreTabNavigator = () => {
       <Drawer.Screen name="Profile 👤" component={Profile} />
       <Drawer.Screen name="Notification 🔔" component={Notification} />
       <Drawer.Screen name="Sharing 💬" component={ShareWith} />
-      <Drawer.Screen name="Settings ⚙️" component={Settings} />
+      <Drawer.Screen name="Settings ⚙️" component={SettingsStackNavigator} />
     </Drawer.Navigator>
   )
 }
