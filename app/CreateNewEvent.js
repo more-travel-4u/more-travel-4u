@@ -24,7 +24,7 @@ const CreateNewEvent = ({ navigation }) => {
   const eventLocation = useSelector(state => state.event.eventLocation)
   const selectedUsers = useSelector(state => state.event.selectedUsers)
   const checkedAddress = useSelector(state => state.event.checkedAddress)
-  const {newEventDate, newEventDateEnd } = useSelector(state => state.event)
+  const { newEventDate, newEventDateEnd } = useSelector(state => state.event)
   const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch();
   const [addingEvent, setAddingEvent] = useState(false)
@@ -36,7 +36,7 @@ const CreateNewEvent = ({ navigation }) => {
   }, [])
   useEffect(() => {
     if (!selectedUsers.length)
-    dispatch(setSelectedUsers(userCompanionsArray))
+      dispatch(setSelectedUsers(userCompanionsArray))
   }, [userCompanionsArray],)
   useEffect(() => {
     if (eventLocation) {
@@ -74,7 +74,7 @@ const CreateNewEvent = ({ navigation }) => {
     if (addingEvent) return;
     else setAddingEvent(true);
     const userIds = selectedUsers.map((selectedUser) => {
-      return ({id: selectedUser.id})
+      return ({ id: selectedUser.id })
     })
     const eventObj = {
       name: formData.name,
@@ -125,7 +125,7 @@ const CreateNewEvent = ({ navigation }) => {
         console.log("Add New Event Error", error)
       }
     }
-    
+
     console.log(eventObj)
     Alert.alert(JSON.stringify(eventObj))
     setAddingEvent(false);
@@ -133,11 +133,11 @@ const CreateNewEvent = ({ navigation }) => {
 
   return (
     <>
-      <View style={styles.scrollContainer}> 
+      <View style={styles.scrollContainer}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.inputContainer}>
             <Text style={styles.title}>Event Name:</Text>
-            <TextInput 
+            <TextInput
               style={styles.input}
               placeholder="Enter Event Name"
               value={formData.name}
@@ -146,26 +146,26 @@ const CreateNewEvent = ({ navigation }) => {
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.title}>Event Start Time:</Text>
-            <MyDateTimePicker {...{activeTrip}}/>
+            <MyDateTimePicker {...{ activeTrip }} />
             <Divider />
             <Text style={styles.title}>Event End Time:</Text>
-            <MyEndDateTimePicker {...{activeTrip}}/>
+            <MyEndDateTimePicker {...{ activeTrip }} />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.title}>Location:</Text>
-            <TextInput 
+            <TextInput
               style={styles.input}
               placeholder="Enter Location, or choose from map"
               value={formData.location}
               onChangeText={(text) => handleInput("location", text)}
             />
             {/* Note: Button cannot accept style prop*/}
-            <Button color={checkedAddress ? "green" : "blue"} title="Confirm Address" onPress={handleConfirmAddress}/>
-            <Button style={styles.button} title="Choose from Map" onPress={handleChooseFromMap}/>
+            <Button color={checkedAddress ? "green" : "blue"} title="Confirm Address" onPress={handleConfirmAddress} />
+            <Button style={styles.button} title="Choose from Map" onPress={handleChooseFromMap} />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.title}>Description:</Text>
-            <TextInput 
+            <TextInput
               style={styles.input}
               placeholder="Enter Description (optional)"
               value={formData.description}
@@ -177,18 +177,18 @@ const CreateNewEvent = ({ navigation }) => {
           <View style={styles.inputContainer}>
             <Text style={styles.title}>Event Participants</Text>
             <View style={styles.checkboxContainer}>
-              {userCompanionsArray.map(userCompanion => <UserCompanionCheckBox {...{userCompanion}}/>)}
+              {userCompanionsArray.map(userCompanion => <UserCompanionCheckBox {...{ userCompanion }} />)}
             </View>
           </View>
           {/* Note: Button cannot accept style prop*/}
-          <Button style={styles.button} title="Add Event" onPress={handleAddEvent}/>
+          <Button style={styles.button} title="Add Event" onPress={handleAddEvent} />
         </ScrollView>
       </View>
     </>
   )
 }
 
-const UserCompanionCheckBox = ({userCompanion}) => {
+const UserCompanionCheckBox = ({ userCompanion }) => {
 
   const dispatch = useDispatch();
   const [isSelected, setIsSelected] = useState(true)
@@ -221,7 +221,7 @@ const UserCompanionCheckBox = ({userCompanion}) => {
 
   return (
     <View key={userCompanion.username + userCompanion.id}>
-      <CheckBox 
+      <CheckBox
         style={styles.checkbox}
         value={isSelected}
         onValueChange={handleUserChange}
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const MyDateTimePicker = ({activeTrip}) => {
+const MyDateTimePicker = ({ activeTrip }) => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date(activeTrip.start_date))
   const newEventDate = useSelector(state => state.event.newEventDate);
@@ -338,8 +338,8 @@ const MyDateTimePicker = ({activeTrip}) => {
           testID="dateTimePicker"
           value={date}
           mode={mode}
-          maximumDate = {new Date(activeTrip.end_date)}
-          minimumDate = {new Date(activeTrip.start_date)}
+          maximumDate={new Date(activeTrip.end_date)}
+          minimumDate={new Date(activeTrip.start_date)}
           onChange={onChange}
         />
       )}
@@ -347,7 +347,7 @@ const MyDateTimePicker = ({activeTrip}) => {
   );
 };
 
-const MyEndDateTimePicker = ({activeTrip}) => {
+const MyEndDateTimePicker = ({ activeTrip }) => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date(activeTrip.start_date))
   const newEventDateEnd = useSelector(state => state.event.newEventDateEnd);
@@ -384,7 +384,7 @@ const MyEndDateTimePicker = ({activeTrip}) => {
   };
 
   return (
-    <View> 
+    <View>
       {/* Note: Button cannot accept style prop*/}
       <Button style={styles.button} onPress={showDatepicker} title="Choose date" />
       <Button style={styles.button} onPress={showTimepicker} title="Choose time" />
@@ -394,8 +394,8 @@ const MyEndDateTimePicker = ({activeTrip}) => {
           testID="dateTimePicker"
           value={date}
           mode={mode}
-          maximumDate = {new Date(activeTrip.end_date)}
-          minimumDate = {new Date(activeTrip.start_date)}
+          maximumDate={new Date(activeTrip.end_date)}
+          minimumDate={new Date(activeTrip.start_date)}
           onChange={onChange}
         />
       )}

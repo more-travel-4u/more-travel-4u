@@ -10,7 +10,7 @@ const ProfilePage = () => {
 
   const dispatch = useDispatch();
   // getting the state variables username, password, email, and userMessage (for use of settings messages) from Redux state store
-  const { username, password, email, userMessage, newPassword } = useSelector((state) => state.user); 
+  const { username, password, email, userMessage, newPassword } = useSelector((state) => state.user);
   const token = useSelector(state => state.auth.token);
   // const isFocused = useIsFocused();
   const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +27,7 @@ const ProfilePage = () => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
           }
-        }) 
+        })
         const json = await response.json();
         console.log(json.user)
         dispatch(setUser(json.user))
@@ -118,7 +118,7 @@ const ProfilePage = () => {
           <Text>{username}</Text>
         )}
       </View>
-      
+
       {isEditing && (
         <>
           <View style={styles.inputGroup}>
@@ -168,12 +168,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#C3ADB3',
   },
   header: {
     fontSize: 24,
     marginBottom: 20,
     marginTop: 55,
+    backgroundColor: '#C3ADB3'
   },
   inputGroup: {
     marginBottom: 15,
@@ -181,7 +182,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    marginBottom: 5,
+    fontWeight: 'bold',
+    marginBottom: 3,
   },
   input: {
     borderWidth: 1,
@@ -192,7 +194,6 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     marginTop: 75,
-    // alignContent: ProfilePage, // this was breaking the Profile page.
   },
 });
 
