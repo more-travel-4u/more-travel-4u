@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTrip, setActiveTripCompanions } from './../store/tripSlice.js';
 import { API_URL } from './Login.js';
 import { setSeeModal } from "./../store/eventSlice.js";
+import { setUser } from "./../store/userSlice.js";
 
 export default function HomeScreen() {
 
   const dispatch = useDispatch();
   const activeTrip = useSelector(state => state.trip.activeTrip);
   const token = useSelector(state => state.auth.token);
+  const { username, email } = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(setSeeModal(false));
@@ -35,6 +37,27 @@ export default function HomeScreen() {
         }
       }
     })();
+  }, [token],);
+
+  useEffect(() => {
+    // upon navigating to the tab, get details of the user
+    const getUser = async () => {
+      try {
+        const response = await fetch(API_URL + "/api/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        }) 
+        const json = await response.json();
+        // console.log(json.user)
+        dispatch(setUser(json.user))
+      } catch (error) {
+        console.error("ERROR HERE:", error);
+      }
+    }
+    if (!username || !email) getUser();
   }, [token],);
 
   return (

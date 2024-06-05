@@ -55,8 +55,22 @@ router.post("/", async (req, res) => {
       name, 
       start_date, 
       end_date, 
-      userIds
+      usernames
     } = req.body;
+    const userIds = [];
+    for (const username of usernames) {
+      const userId = await prisma.users.findUnique({
+        where: {
+          username
+        },
+        select: {
+          id: true
+        }
+      })
+      if (!userId) return res.status(200).send({ message: `Unable to locate user ${username} in our records!`})
+      const usersId = { usersId: userId.id }
+      userIds.push(usersId)
+    }
     const activeTrip = await findActiveTrip(req.user.id)
     if (activeTrip) await setTripStatus(req.user.id, activeTrip, false)
     for (const obj of userIds) {
