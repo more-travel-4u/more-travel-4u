@@ -46,9 +46,9 @@ export default function Maps() {
         style={styles.map}
         onRegionChange={onRegionChange}
         initialRegion={{
-          latitude: 33.4369,
+          latitude: 41.9398,
           latitudeDelta: 6.4264,
-          longitude: -96.7203,
+          longitude: -87.6589,
           longitudeDelta: 4.3986,
         }}
       >

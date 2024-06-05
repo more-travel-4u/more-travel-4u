@@ -16,14 +16,14 @@ const ChooseFromMap = ({ navigation }) => {
   useEffect(() => {
     const getLocation = async () => {
       try {
-      let _location = await Location.getCurrentPositionAsync({});
-      setLocation(_location);
+        let _location = await Location.getCurrentPositionAsync({});
+        setLocation(_location);
       } catch (error) {
         // setErrorMsg("Unable to get location.")
         setLocation({
           coords: {
-            latitude: 35.6764,
-            longitude: 139.6500
+            latitude: 41.9398,
+            longitude: -87.6589,
           }
         })
       }
@@ -43,7 +43,7 @@ const ChooseFromMap = ({ navigation }) => {
     console.log(event.nativeEvent.coordinate.latitude.toString())
     console.log(event.nativeEvent.coordinate.longitude.toString())
     try {
-      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${event.nativeEvent.coordinate.latitude.toString().slice(0,8)},${event.nativeEvent.coordinate.longitude.toString().slice(0,8)}&key=${process.env.EXPO_PUBLIC_GOOGLE_API_KEY}`)
+      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${event.nativeEvent.coordinate.latitude.toString().slice(0, 8)},${event.nativeEvent.coordinate.longitude.toString().slice(0, 8)}&key=${process.env.EXPO_PUBLIC_GOOGLE_API_KEY}`)
       const json = await response.json();
       if (json.status === "OK") {
         dispatch(setEventLocation(json.results[0].formatted_address))
@@ -56,21 +56,21 @@ const ChooseFromMap = ({ navigation }) => {
 
   return (
     <>
-    {!location && <ActivityIndicator />}
-    {location &&
-      <MapView
-        style={styles.map}
-        mapType="hybrid"
-        initialRegion={{
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.00922,
-          longitudeDelta: 0.00421,
-        }}
-        onPress={handleSelect}
-        onPoiClick={handleSelect}
-      ></MapView>
-    } 
+      {!location && <ActivityIndicator />}
+      {location &&
+        <MapView
+          style={styles.map}
+          mapType="hybrid"
+          initialRegion={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.00922,
+            longitudeDelta: 0.00421,
+          }}
+          onPress={handleSelect}
+          onPoiClick={handleSelect}
+        ></MapView>
+      }
     </>
   )
 }
