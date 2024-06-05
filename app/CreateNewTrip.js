@@ -11,21 +11,134 @@ import { API_URL } from './Login.js';
 
 const CreateNewTrip = () => {
 
-  // expected req.body { name, start_date, end_date, userIds: [{usersId}, {usersId}, {usersId}] }
-
+  const myUsername = useSelector(state => state.user.username)
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [usernames, setUsernames] = useState([]);
+  const [usernames, setUsernames] = useState([myUsername]);
+  const [currentUsername, setCurrentUsername] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const token = useSelector(state => state.auth.token)
+  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     return (() => {
       setName("")
       setStartDate(new Date())
       setEndDate(new Date())
-      setUsernames([])
+      setUsernames([myUsername])
+      setMessage("")
     })
   }, [])
+
+  const DisplayTripAttendees = ({username}) => {
+
+    const isSelf = (username === myUsername);
+
+    const handleRemove = () => {
+      if (isSelf) return;
+      const usernamesAfterRemoval = usernames.filter((arrayUsername) => {
+        if (username !== arrayUsername) return true;
+        else return false;
+      })
+      setUsernames([...usernamesAfterRemoval]);
+    }
+
+    return (
+      <View key={username} style={styles.userContainer}>
+        <Button title="Remove" onPress={handleRemove}/>
+        <Text style={{fontSize: 20}}>  {username}</Text>
+      </View>
+    )
+  }
+
+  const handleAdd = () => {
+    if (!currentUsername) return Alert.alert("Please fill out the username of your trip companion.")
+    const newUsernamesArray = [...usernames, currentUsername]
+    setUsernames(newUsernamesArray)
+    setCurrentUsername("")
+    console.log(usernames)
+  }
+
+  const handleSubmit = async () => {
+    if (submitting) return;
+    else setSubmitting(true);
+    if (!name) {
+      Alert.alert("Please provide a name for the trip!");
+      setSubmitting(false);
+      return;
+    } else if (!startDate) {
+      Alert.alert("Please set a start date for the trip!");
+      setSubmitting(false);
+      return;
+    } else if (!endDate) {
+      Alert.alert("Please set an end date for the trip!");
+      setSubmitting(false);
+      return;
+    } else if (startDate > endDate) {
+      Alert.alert("Trip end date must be after trip start date!");
+      setSubmitting(false);
+      return;
+    }
+    try {
+      const body = JSON.stringify({
+        name,
+        start_date: startDate,
+        end_date: endDate,
+        usernames
+      });
+      const response = await fetch(API_URL + "/api/trip", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body
+      })
+      const json = await response.json();
+      if (response.ok) {
+        if (json.message) {
+          setMessage(json.message) 
+          setSubmitting(false);
+        } else {
+          try {
+            const response2 = await fetch(API_URL + "/api/trip", {
+              method: "GET",
+              headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              }
+            })
+            const json2 = await response2.json();
+            if (response2.ok) {
+              dispatch(setActiveTrip(json2.trip));
+              dispatch(setActiveTripCompanions());
+              setMessage("Trip successfully created!")
+            }
+          } catch (error) {
+            console.error("ERROR GETTING ACTIVE TRIP AFTER CREATING NEW TRIP", error)
+            setMessage("There was an error retrieving trip information after creating a new trip; please restart the app.")
+          }
+          setName("")
+          setStartDate(new Date())
+          setEndDate(new Date())
+          setUsernames([myUsername])
+          setSubmitting(false);
+        }
+      } else {
+        setMessage("There was an issue creating new trip; please try again later.")
+        setSubmitting(false);
+      }
+    } catch (error) {
+      console.error("CREATING NEW TRIP ERROR", error);
+      setSubmitting(false);
+    }
+    setSubmitting(false);
+  }
 
   return (
     <>
@@ -47,17 +160,24 @@ const CreateNewTrip = () => {
             <Text style={styles.title}>Trip End Date:</Text>
             <MyEndDateTimePicker {...{setEndDate, endDate}}/>
           </View>
-          {/* <View style={styles.inputContainer}>
+          <View style={styles.inputContainer}>
             <Text style={styles.title}>Users Attending Trip:</Text>
+            {usernames.map(username => {return <DisplayTripAttendees {...{username}}/>})}
             <TextInput 
               style={styles.input}
-              placeholder="Enter Username of Companion"
-              value={formData.description}
-              onChangeText={(text) => handleInput("description", text)}
-              multiline={true}
-              numberOfLines={5}
+              placeholder="Enter Username of Trip Companion"
+              value={currentUsername}
+              onChangeText={text => setCurrentUsername(text)}
             />
-          </View> */}
+            <Button title="Add User" onPress={handleAdd}/>
+            {message && <Text style={styles.title}>{message}</Text>}
+            {/* <Button title="console log" onPress={() => {
+              console.log(submitting)
+              console.log(usernames)
+              // setSubmitting(false);
+            }} /> */}
+            <Button title="Create New Trip" onPress={handleSubmit} />
+          </View>
         </ScrollView>
       </View>
     </>
@@ -192,6 +312,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10
+  },
+  userContainer: {
+    flex: 1,
+    flexDirection: "row"
   }
 });
 
