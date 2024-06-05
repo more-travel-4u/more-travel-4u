@@ -19,7 +19,13 @@ const ChooseFromMap = ({ navigation }) => {
       let _location = await Location.getCurrentPositionAsync({});
       setLocation(_location);
       } catch (error) {
-        setErrorMsg("Unable to get location.")
+        // setErrorMsg("Unable to get location.")
+        setLocation({
+          coords: {
+            latitude: 35.6764,
+            longitude: 139.6500
+          }
+        })
       }
     }
     getLocation();
