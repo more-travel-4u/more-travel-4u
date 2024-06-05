@@ -89,7 +89,7 @@ const EventStackNavigator = () => {
   const dispatch = useDispatch();
 
   return (
-    <RegStack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'lightblue' } }}>
+    <RegStack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'white' } }}>
       <RegStack.Screen
         name="Planner"
         component={Planner}
