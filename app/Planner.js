@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     marginVertical: 4,
-    marginHorizontal: 40,
-    height: 70,
+    marginHorizontal: 10,
+    height: 124,
   },
   title: {
     fontSize: 17,
@@ -168,13 +168,9 @@ const styles = StyleSheet.create({
     left: 50,
     top: 45,
     height: 70,
-    width: 300,
+    width: 250,
     position: "absolute",
     justifyContent: "center",
-    border: "solid",
-    borderColor: "black",
-    borderWidth: 1,
-    backgroundColor: "white",
     flexDirection: "row"
   },
   modalContainer: {

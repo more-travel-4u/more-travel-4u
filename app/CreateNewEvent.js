@@ -118,6 +118,7 @@ const CreateNewEvent = ({ navigation }) => {
           if (response2.ok) {
             dispatch(setActiveTrip(json2.trip));
             dispatch(setActiveTripCompanions());
+            navigation.navigate('Planner');
           }
         }
         console.log(json)
@@ -127,7 +128,7 @@ const CreateNewEvent = ({ navigation }) => {
     }
 
     console.log(eventObj)
-    Alert.alert(JSON.stringify(eventObj))
+    // Alert.alert(JSON.stringify(eventObj))
     setAddingEvent(false);
   }
 

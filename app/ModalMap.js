@@ -32,7 +32,7 @@ const ModalMap = () => {
         console.error("Handle Confirm Address Error", error)
       }
     }
-    getUserLocation();
+    //getUserLocation();
     getEventCoordinates();
     return (() => {
       setLocation(null);
@@ -57,8 +57,8 @@ const ModalMap = () => {
   return (
     <>
       <Text>Event Location on Map:</Text>
-      {location && 
-        <MapView 
+      {location &&
+        <MapView
           style={styles.map}
           initialRegion={{
             latitude: location.lat,
@@ -67,16 +67,16 @@ const ModalMap = () => {
             longitudeDelta: 0.01
           }}
         >
-          <Marker 
-            coordinate={{latitude: location.lat, longitude: location.lng}}
+          <Marker
+            coordinate={{ latitude: location.lat, longitude: location.lng }}
             title="Event Location"
             titleVisibility="visible"
           />
-          <Marker 
+          {/* <Marker 
             coordinate={{ latitude: userLocation.coords.latitude, longitude: userLocation.coords.longitude }}
             title="User Location"
             pinColor="yellow"
-          />
+          /> */}
         </MapView>
       }
     </>
